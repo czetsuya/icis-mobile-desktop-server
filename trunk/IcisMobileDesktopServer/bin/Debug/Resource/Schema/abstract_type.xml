@@ -1,0 +1,8 @@
+﻿<abstract-type>
+	<name>{name}</name>
+	<property>{property}</property>
+	<scale>{scale}</scale>
+	<method>{method}</method>
+	<data-type>{data-type}</data-type>
+	<scaleid>{scaleid}</scaleid>
+</abstract-type>
