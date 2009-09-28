@@ -35,6 +35,33 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			}
 		}
 
+		internal static void SetVariatePropertyID(Engine engine) 
+		{
+			DataAccessHelper local = new DataAccessHelper(engine.localDMS);
+			DataAccessHelper central = new DataAccessHelper(engine.centralDMS);
+			String sql = "";
+			String result;
+
+			for(int i = 0; i < engine.study.GetVariates().Count; i++) 
+			{	
+				Variate variate = engine.study.GetVariate(i);
+				sql = String.Format("SELECT traitid FROM trait WHERE TRNAME='{0}'", variate.PROPERTY);
+				result = local.GetScalar(sql);
+
+				if(result != "") 
+				{
+					variate.PROPERTYID = result;
+				}
+				else 
+				{
+					result = central.GetScalar(sql);
+					variate.PROPERTYID = result;
+				}
+				engine.study.SetVariate(i, variate);
+			}
+
+		}
+
 		/// <summary>
 		/// Set the scales
 		/// </summary>
@@ -49,7 +76,7 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			for(int i = 0; i < engine.study.GetVariates().Count; i++)
 			{
 				Variate variate = engine.study.GetVariate(i);
-				sql = String.Format("SELECT scaleid, sctype FROM scale WHERE scname='{0}'", variate.SCALE);
+				sql = String.Format("SELECT scaleid, sctype FROM scale WHERE scname='{0}' AND traitid={1}", variate.SCALE, variate.PROPERTYID);
 				
 				result = local.GetPair(sql);
 				if(result != null) 

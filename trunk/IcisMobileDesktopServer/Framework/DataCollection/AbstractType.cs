@@ -14,6 +14,7 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 	{
 		private String name;
 		private String property;
+		private String propertyid;
 		private String scale;
 		private String method;
 		private String datatype;
@@ -39,6 +40,12 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 		{
 			set { property = value; }
 			get { return property; }
+		}
+
+		public String PROPERTYID
+		{
+			set { propertyid = value; }
+			get { return propertyid; }
 		}
 
 		public String SCALE 

@@ -153,7 +153,10 @@ namespace IcisMobileDesktopServer.Framework
 			//copy the file to the mobile device
 			rapi.CopyFilePCtoPDA(studyPath + studyFile, resourceHelper.GetString("copy_dir") + studyFile);
 
-			//SetFactorScales();
+			//SetVariateProperties
+			VariateBuilder.SetVariatePropertyID(this);
+
+			//SetVariateScales();
 			VariateBuilder.SetVariateScales(this);
 		}
 		#endregion

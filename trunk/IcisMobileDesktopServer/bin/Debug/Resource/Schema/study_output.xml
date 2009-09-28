@@ -13,31 +13,35 @@
 		<variate>
 	<name>GRNYLD</name>
 	<property>YIELD (GRAIN)</property>
+	<propertyid>1003</propertyid>
 	<scale>Kg/ha</scale>
+	<scaleid>9</scaleid>
 	<method>Paddy Rice</method>
 	<data-type>N</data-type>
-	<scaleid>9</scaleid>
 </variate><variate>
 	<name>PLTHT</name>
-	<property>PLANT HEIGHT</property>
-	<scale>cm</scale>
+	<property>PLANT VIGOR</property>
+	<propertyid>1007</propertyid>
+	<scale>SES Score Vigor 5pt</scale>
+	<scaleid>1</scaleid>
 	<method>At Maturity (Stages 7-9)</method>
 	<data-type>N</data-type>
-	<scaleid>4</scaleid>
 </variate><variate>
 	<name>FLW</name>
 	<property>FLOWERING</property>
+	<propertyid>1013</propertyid>
 	<scale>No. of days</scale>
+	<scaleid>70</scaleid>
 	<method>80% Flowering</method>
 	<data-type>N</data-type>
-	<scaleid>-5</scaleid>
 </variate><variate>
 	<name>PACP</name>
 	<property>PHENOTYPHIC ACCEPTABILITY</property>
+	<propertyid>1005</propertyid>
 	<scale>SES Score Acceptability 5pt</scale>
+	<scaleid>8</scaleid>
 	<method>At Maturity</method>
 	<data-type>N</data-type>
-	<scaleid>8</scaleid>
 </variate>
 	</variates>
 	<scales>
@@ -45,18 +49,23 @@
 	<id>9</id>
 	<name>Kg/ha</name>
 	<type>C</type>
-	<value1></value1>
-	<value2></value2>
+	<value1>10</value1>
+	<value2>20</value2>
 	<value3>{value3}</value3>
 </scale><scale>
-	<id>4</id>
-	<name>cm</name>
-	<type>C</type>
+	<id>1</id>
+	<name>SES Score Vigor 5pt</name>
+	<type>D</type>
 	<value1></value1>
 	<value2></value2>
-	<value3>{value3}</value3>
+	<value3>3|Vigorous (fast growing; plants at 4-5 leaf stage have 1-2 tillers in majority of population)
+1|Extra vigorous (very fast growing; plants at 5-leaf stage have 2 or more tillers in majority of population)
+7|Weak (plants somewhat stunted; 3-4 leaves; thin population; no tiller formation)
+9|Very weak (stunted growth; yellowing of leaves)
+5|Normal (plants at 4-leaf stage)
+</value3>
 </scale><scale>
-	<id>-5</id>
+	<id>70</id>
 	<name>No. of days</name>
 	<type>C</type>
 	<value1></value1>
