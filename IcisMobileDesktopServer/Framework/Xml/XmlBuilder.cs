@@ -91,10 +91,11 @@ namespace IcisMobileDesktopServer.Framework.Xml
 				String temp = factor_variate_schema;
 				temp = temp.Replace("{name}", obj.NAME);
 				temp = temp.Replace("{property}", obj.PROPERTY);
+				temp = temp.Replace("{propertyid}", obj.PROPERTYID);
 				temp = temp.Replace("{scale}", obj.SCALE);
-				temp = temp.Replace("{method}", obj.METHOD);
-				temp = temp.Replace("{data-type}", obj.DATATYPE);
 				temp = temp.Replace("{scaleid}", obj.SCALEID);
+				temp = temp.Replace("{method}", obj.METHOD);
+				temp = temp.Replace("{data-type}", obj.DATATYPE);				
 				abstract_list += temp;
 			}
 

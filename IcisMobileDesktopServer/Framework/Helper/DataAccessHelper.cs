@@ -25,9 +25,16 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			{
 				obj = reader.GetString(i);
 			} 
-			catch(InvalidCastException e) 
+			catch(InvalidCastException e)
 			{
-				obj = reader.GetInt32(i);
+				try 
+				{
+					obj = reader.GetInt32(i);
+				} 
+				catch(InvalidCastException e1) 
+				{
+					obj = reader.GetDouble(i);
+				}
 			}
 			return obj;
 		}
@@ -47,6 +54,34 @@ namespace IcisMobileDesktopServer.Framework.Helper
 					str = new String[2];
 					str[0] = Convert.ToString(GetValue(reader, 0));
 					str[1] = Convert.ToString(GetValue(reader, 1));
+					break;
+				}
+			} 
+			catch(OleDbException e) 
+			{
+				LogHelper.Instance().WriteLog(e.Message);
+			}
+			finally 
+			{
+				cmd.Connection.Close();
+			}
+
+			return str;
+		}
+
+		public String GetScalar(String sql)
+		{
+			String str = "";
+			try 
+			{	
+				conn.Open();
+				cmd = conn.CreateCommand();
+				cmd.CommandText = sql;
+				OleDbDataReader reader = cmd.ExecuteReader();
+
+				while(reader.Read()) 
+				{	
+					str = Convert.ToString(GetValue(reader, 0));
 					break;
 				}
 			} 
