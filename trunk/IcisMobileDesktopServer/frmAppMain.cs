@@ -23,7 +23,7 @@ namespace IcisMobileDesktopServer
 		Framework.Engine engine;
 
 		#region Application
-		private System.Windows.Forms.Label label1;
+
 		private System.Windows.Forms.OpenFileDialog ofdSelWb;
 		private System.Windows.Forms.Button btnOpenFD;
 		private System.Windows.Forms.TextBox tbWB;
@@ -36,11 +36,13 @@ namespace IcisMobileDesktopServer
 		private System.Windows.Forms.OpenFileDialog ofddmslocal;
 		private System.Windows.Forms.OpenFileDialog ofddmscentral;
 		private System.Windows.Forms.Button btnSelFacs;
-		
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+		private System.Windows.Forms.Button btnFromDevice;
+		private System.Windows.Forms.OpenFileDialog ofdXlsFile;
+		private System.Windows.Forms.ProgressBar progressBar1;
+		private System.Windows.Forms.Timer timerBtn;
+		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.Label lblHeader1;
+		private System.ComponentModel.IContainer components;
 
 		public frmAppMain()
 		{
@@ -74,7 +76,9 @@ namespace IcisMobileDesktopServer
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.label1 = new System.Windows.Forms.Label();
+			this.components = new System.ComponentModel.Container();
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(frmAppMain));
+			this.lblHeader1 = new System.Windows.Forms.Label();
 			this.ofdSelWb = new System.Windows.Forms.OpenFileDialog();
 			this.btnOpenFD = new System.Windows.Forms.Button();
 			this.tbWB = new System.Windows.Forms.TextBox();
@@ -87,15 +91,21 @@ namespace IcisMobileDesktopServer
 			this.ofddmslocal = new System.Windows.Forms.OpenFileDialog();
 			this.ofddmscentral = new System.Windows.Forms.OpenFileDialog();
 			this.btnSelFacs = new System.Windows.Forms.Button();
+			this.btnFromDevice = new System.Windows.Forms.Button();
+			this.ofdXlsFile = new System.Windows.Forms.OpenFileDialog();
+			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			this.timerBtn = new System.Windows.Forms.Timer(this.components);
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.SuspendLayout();
 			// 
-			// label1
+			// lblHeader1
 			// 
-			this.label1.Location = new System.Drawing.Point(72, 16);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(216, 23);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Please Select Workbook Template";
+			this.lblHeader1.Location = new System.Drawing.Point(0, 88);
+			this.lblHeader1.Name = "lblHeader1";
+			this.lblHeader1.Size = new System.Drawing.Size(384, 23);
+			this.lblHeader1.TabIndex = 0;
+			this.lblHeader1.Text = "Please Select Workbook Template";
+			this.lblHeader1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// ofdSelWb
 			// 
@@ -106,7 +116,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// btnOpenFD
 			// 
-			this.btnOpenFD.Location = new System.Drawing.Point(280, 104);
+			this.btnOpenFD.Location = new System.Drawing.Point(288, 184);
 			this.btnOpenFD.Name = "btnOpenFD";
 			this.btnOpenFD.Size = new System.Drawing.Size(72, 24);
 			this.btnOpenFD.TabIndex = 1;
@@ -115,7 +125,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// tbWB
 			// 
-			this.tbWB.Location = new System.Drawing.Point(16, 104);
+			this.tbWB.Location = new System.Drawing.Point(16, 184);
 			this.tbWB.Name = "tbWB";
 			this.tbWB.Size = new System.Drawing.Size(248, 22);
 			this.tbWB.TabIndex = 2;
@@ -123,24 +133,25 @@ namespace IcisMobileDesktopServer
 			// 
 			// btnProcess
 			// 
-			this.btnProcess.Location = new System.Drawing.Point(8, 328);
+			this.btnProcess.Location = new System.Drawing.Point(200, 248);
 			this.btnProcess.Name = "btnProcess";
-			this.btnProcess.Size = new System.Drawing.Size(128, 23);
+			this.btnProcess.Size = new System.Drawing.Size(152, 23);
 			this.btnProcess.TabIndex = 3;
 			this.btnProcess.Text = "Upload to Device";
 			this.btnProcess.Click += new System.EventHandler(this.btnProcess_Click);
 			// 
 			// btnExit
 			// 
-			this.btnExit.Location = new System.Drawing.Point(296, 328);
+			this.btnExit.Location = new System.Drawing.Point(200, 288);
 			this.btnExit.Name = "btnExit";
+			this.btnExit.Size = new System.Drawing.Size(152, 23);
 			this.btnExit.TabIndex = 4;
 			this.btnExit.Text = "Exit";
 			this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
 			// 
 			// tbDMSLocal
 			// 
-			this.tbDMSLocal.Location = new System.Drawing.Point(16, 40);
+			this.tbDMSLocal.Location = new System.Drawing.Point(16, 120);
 			this.tbDMSLocal.Name = "tbDMSLocal";
 			this.tbDMSLocal.Size = new System.Drawing.Size(248, 22);
 			this.tbDMSLocal.TabIndex = 6;
@@ -148,7 +159,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// tbDMSCentral
 			// 
-			this.tbDMSCentral.Location = new System.Drawing.Point(16, 72);
+			this.tbDMSCentral.Location = new System.Drawing.Point(16, 152);
 			this.tbDMSCentral.Name = "tbDMSCentral";
 			this.tbDMSCentral.Size = new System.Drawing.Size(248, 22);
 			this.tbDMSCentral.TabIndex = 7;
@@ -156,7 +167,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// btnCentralDMS
 			// 
-			this.btnCentralDMS.Location = new System.Drawing.Point(280, 72);
+			this.btnCentralDMS.Location = new System.Drawing.Point(288, 152);
 			this.btnCentralDMS.Name = "btnCentralDMS";
 			this.btnCentralDMS.TabIndex = 8;
 			this.btnCentralDMS.Text = "Select";
@@ -164,7 +175,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// btnLocalDMS
 			// 
-			this.btnLocalDMS.Location = new System.Drawing.Point(280, 40);
+			this.btnLocalDMS.Location = new System.Drawing.Point(288, 120);
 			this.btnLocalDMS.Name = "btnLocalDMS";
 			this.btnLocalDMS.TabIndex = 9;
 			this.btnLocalDMS.Text = "Select";
@@ -182,28 +193,70 @@ namespace IcisMobileDesktopServer
 			// 
 			// btnSelFacs
 			// 
-			this.btnSelFacs.Location = new System.Drawing.Point(8, 296);
+			this.btnSelFacs.Location = new System.Drawing.Point(24, 248);
 			this.btnSelFacs.Name = "btnSelFacs";
-			this.btnSelFacs.Size = new System.Drawing.Size(128, 23);
+			this.btnSelFacs.Size = new System.Drawing.Size(152, 23);
 			this.btnSelFacs.TabIndex = 10;
 			this.btnSelFacs.Text = "Select Factor";
 			this.btnSelFacs.Click += new System.EventHandler(this.btnSelFacs_Click);
 			// 
+			// btnFromDevice
+			// 
+			this.btnFromDevice.Location = new System.Drawing.Point(24, 288);
+			this.btnFromDevice.Name = "btnFromDevice";
+			this.btnFromDevice.Size = new System.Drawing.Size(152, 23);
+			this.btnFromDevice.TabIndex = 11;
+			this.btnFromDevice.Text = "Download from Device";
+			this.btnFromDevice.Click += new System.EventHandler(this.btnFromDevice_Click);
+			// 
+			// ofdXlsFile
+			// 
+			this.ofdXlsFile.DefaultExt = "xls";
+			this.ofdXlsFile.Filter = "Microsoft Excel Document (*.xls) | *.xls";
+			this.ofdXlsFile.InitialDirectory = "c:\\\\";
+			// 
+			// progressBar1
+			// 
+			this.progressBar1.Location = new System.Drawing.Point(1, 335);
+			this.progressBar1.Name = "progressBar1";
+			this.progressBar1.Size = new System.Drawing.Size(224, 23);
+			this.progressBar1.TabIndex = 12;
+			this.progressBar1.Visible = false;
+			// 
+			// timerBtn
+			// 
+			this.timerBtn.Interval = 3000;
+			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+			this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(380, 80);
+			this.pictureBox1.TabIndex = 13;
+			this.pictureBox1.TabStop = false;
+			// 
 			// frmAppMain
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
+			this.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.ClientSize = new System.Drawing.Size(376, 355);
+			this.Controls.Add(this.pictureBox1);
+			this.Controls.Add(this.progressBar1);
+			this.Controls.Add(this.btnFromDevice);
 			this.Controls.Add(this.btnSelFacs);
 			this.Controls.Add(this.btnLocalDMS);
 			this.Controls.Add(this.btnCentralDMS);
 			this.Controls.Add(this.tbDMSCentral);
 			this.Controls.Add(this.tbDMSLocal);
+			this.Controls.Add(this.tbWB);
 			this.Controls.Add(this.btnExit);
 			this.Controls.Add(this.btnProcess);
-			this.Controls.Add(this.tbWB);
 			this.Controls.Add(this.btnOpenFD);
-			this.Controls.Add(this.label1);
+			this.Controls.Add(this.lblHeader1);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "frmAppMain";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "ICIS-Mobile Desktop Server";
 			this.ResumeLayout(false);
 
@@ -216,12 +269,27 @@ namespace IcisMobileDesktopServer
 		[STAThread]
 		static void Main() 
 		{
+			SplashScreen.RegistryAccess.SetStringRegistryValue("SOFTWARE_KEY", "Software");
+			SplashScreen.RegistryAccess.SetStringRegistryValue("COMPANY_NAME", "IRRI");
+			SplashScreen.RegistryAccess.SetStringRegistryValue("APPLICATION_NAME", "ICIS Mobile");
+			
+			
+
 			Application.Run(new frmAppMain());
 		}
 		#endregion
-	
+				
 		private void InitializeICIS() 
 		{
+			SplashScreen.SplashScreen.ShowSplashScreen(); 
+			Application.DoEvents();
+			SplashScreen.SplashScreen.SetStatus("Initializing ICIS Mobile.");
+			System.Threading.Thread.Sleep(1000);
+			SplashScreen.SplashScreen.SetStatus("Initializing ICIS Mobile..");
+			System.Threading.Thread.Sleep(1000);
+			SplashScreen.SplashScreen.SetStatus("Initializing ICIS Mobile...");
+			System.Threading.Thread.Sleep(1000);
+
 			String default_dir = @"C:\ICIS5";
 			ofddmscentral.InitialDirectory = default_dir;
 			ofddmslocal.InitialDirectory = default_dir;
@@ -231,7 +299,14 @@ namespace IcisMobileDesktopServer
 			ofddmslocal.InitialDirectory = @"C:\ICIS5\current\Training.mdb";
 			ofdSelWb.InitialDirectory = @"C:\ICIS5\U03WSHB_data.xls";
 
-			engine = new Engine();
+			engine = new Engine(progressBar1);
+
+			timerBtn.Tick += new EventHandler(timerBtn_Tick);
+
+			if( SplashScreen.SplashScreen.SplashForm != null )
+				SplashScreen.SplashScreen.SplashForm.Owner = this;
+			this.Activate();
+			SplashScreen.SplashScreen.CloseForm();
 		}
 
 		private void btnOpenFD_Click(object sender, System.EventArgs e)
@@ -243,8 +318,20 @@ namespace IcisMobileDesktopServer
 		}
 
 		private void btnProcess_Click(object sender, System.EventArgs e)
-		{	
-			engine.Process();
+		{
+			if(FileHelper.IsExists(tbDMSCentral.Text) && FileHelper.IsExists(tbDMSLocal.Text)) 
+			{
+				btnProcess.Enabled = false;
+				timerBtn.Enabled = true;
+				if(!engine.Process()) 
+				{
+                    MessageHelper.ShowError(ResourceHelper.GetStaticString("messages", "m_factorselect"));
+				}
+			} 
+			else 
+			{
+				MessageHelper.ShowError(ResourceHelper.GetStaticString("messages", "m_accessdb_invalid"));
+			}
 		}
 
 		private void btnExit_Click(object sender, System.EventArgs e)
@@ -276,10 +363,40 @@ namespace IcisMobileDesktopServer
 
 		private void btnSelFacs_Click(object sender, System.EventArgs e)
 		{
-			engine.Initialize(tbWB.Text);
-			engine.SetDatabase(ofddmscentral.FileName, ofddmslocal.FileName);
-			engine.ShowFilterFactors();
+			if(FileHelper.IsExists(tbWB.Text))
+			{
+				engine.Initialize(tbWB.Text);
+				engine.SetDatabase(ofddmscentral.FileName, ofddmslocal.FileName);
+				engine.ShowFilterFactors();
+			} 
+			else 
+			{
+				MessageHelper.ShowError(ResourceHelper.GetStaticString("messages", "m_workbook_invalid"));
+			}
 		}
 
+		private void btnFromDevice_Click(object sender, System.EventArgs e)
+		{
+			timerBtn.Enabled = true;
+			btnFromDevice.Enabled = false;
+			string data_file = engine.DownloadFromDevice();			
+			
+			string excel_file = "";
+			if(data_file != "") 
+			{
+				if(ofdXlsFile.ShowDialog() == DialogResult.OK) 
+				{ //this should be the old file use for uploading
+					excel_file = ofdXlsFile.FileName;
+					engine.WriteToExcel(excel_file, data_file);
+				}
+			}
+		}
+
+		private void timerBtn_Tick(object sender, EventArgs e)
+		{
+			btnProcess.Enabled = true;
+			btnFromDevice.Enabled = true;
+			timerBtn.Enabled = false;
+		}
 	}
 }

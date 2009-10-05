@@ -139,19 +139,48 @@
   <data name="$this.GridSize" type="System.Drawing.Size, System.Drawing, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>8, 8</value>
   </data>
-  <data name="$this.Name">
-    <value>frmSelectFactor</value>
-  </data>
   <data name="$this.DrawGrid" type="System.Boolean, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </data>
   <data name="$this.TrayHeight" type="System.Int32, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>80</value>
   </data>
+  <data name="$this.Name">
+    <value>frmSelectFactor</value>
+  </data>
   <data name="$this.SnapToGrid" type="System.Boolean, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </data>
   <data name="$this.DefaultModifiers" type="System.CodeDom.MemberAttributes, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>Private</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAFBYAAAEAGACoBQAAFgAAACgAAAAUAAAALAAAAAEAGAAAAAAAAAAAABMLAAATCwAAAAAAAAAA
+        AAD////////////+/v/8+/32+Pj3+Pj6+vz09Pfl6Onl6+vo8O3r7+vr7uv09PX6+Pr/////////////
+        ///////////////////w9vDc597c5ODb7NzV4tfCysHI08jG08bP1tHMz8rMzcrx7vL/////////////
+        ///////////////V2dV3h3SjvqGNsY5UfVNPblBkhmFukW5bgVqDpIKImIfX29j18/b/////////////
+        //////////////+etJ2Kn4u51Llkh2NbhloVOBRKc0oKLwpLeEoaOxllgGTx/vD///7/////////////
+        ///////////+/v7w9fKXqpiYvpl9oX5GYUVGbUVhfGFGW0ZgiWFIXkhrfWm8xrjh6t/8+vz/////////
+        ///////////////3/fe/38F5o3tgjmBfjV9fiF9ahlpdkV5bi1tojWlziHOBin+boZrP0c729fj/////
+        ///////////2//efvp1dg1tXgFdej11qmmlpm2dxpGxonGVklWZgh2Bgf19phml7hHmanpjT2NT9/v//
+        ///////+//+UtJVJfUpZiFhplGhzpHJ7qHtypHB2o3R/q31vnnBrmGtgjV5Vhldnhmd8gnqiqKDo6On/
+        //////+yyrNFeERUi1VkmGWAs32X0JQoRCcPMQ4EGQRrmWuazpp9rnlwpGtelF9Vh1Zhg2OCin/FxsT9
+        /Pzm9OdShlFHgkdjlmSPwY5vlmwwSC4AAAA6aTkUKhMMFgtLbUqGsoWHuIRonGZTilVWhVh0hHOmqqLz
+        8vOoxKg9ej1XjViCtYE/XT0JEAkZKxpDZ0NcilxReU8rTSsLIAoKFApxn3B9rHpilWNQiFJmhGeXmpTk
+        4+V0nnVCf0Frm2lwn281UjNFb0QzUDIWJhY8XzwgNyAgOCAsUipHYEZGZkR/rX5omGdTilVehV2Nl4jd
+        3NxZgllLg0prn2t9rnweMR0AAgAABQA0STRjlWFUelMdKxwAAAAJEQg/ZD+Es4Npn2pYj1pYgFiQlo7h
+        6uNTeVFOhk1spGxPbk5Lakl6o3qe0J1Rb1ESNBAUKBOMu4ybxZpxnXE8Wzxji2Jtqm5VjFdYe1ehp5zv
+        8e5fil5GhUdglF98qnqbypmmzafA8cJCZEI3YDchSyCIuYjF8Mar0a2ZwZlyonFjnWVMgk1ngWS3urT8
+        +/mCrIE6eTpZj1lynXCLsYmav5yx2rJRilEOIw8VPRSEvoWv1LGgvKGQtI91pXRck15LgEp7lnrd4tz/
+        /v/D3MM1djhOiVFnmGaAqX2KtImfxKCHuYglMiVLZkqczJ2kvqWVtJR/q31qoWpQiFJPgU22zLX4+/f/
+        ///5/vhxnXJAej5YjVhtoGp4qnGMt4mMt4xjjGKEqYSPtJCPuY17rXxromtdlF9IfUiMtYzw+vH/////
+        ///////f6t9YjFhBekJhkWFqnWhxqm9uoGtIgEZhll5ypXBzqXBooGphlGFHfkd5pXvq+ev/////////
+        ///////////Z69pkkWVDckNThVRhmGJpnWhUjVFinGFnoWdjlWJVglNNf02KsYrr9+v/////////////
+        ///////////////u9++eu59eiF5Lf0pMgkxQhFFKgktNhExXg1ZzmXK907z9//3/////////////////
+        ///////////////////////w9vHN3s6pv6mesp2gt6C3yrja59v5//r/////////////////////////
+        //8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+</value>
   </data>
 </root>

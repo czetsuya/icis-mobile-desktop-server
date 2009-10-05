@@ -17,10 +17,10 @@ namespace IcisMobileDesktopServer.Framework.Builder
 
 		internal static void SetStudyProperties(Engine engine) 
 		{
-			engine.study.NAME = engine.GetCell(engine.resourceHelper.GetIntPair("name_cell")).Trim();
-			engine.study.TITLE = engine.GetCell(engine.resourceHelper.GetIntPair("title_cell")).Trim();
-			engine.study.STARTDATE = engine.GetCell(engine.resourceHelper.GetIntPair("startdate_cell")).Trim();
-			engine.study.ENDDATE = engine.GetCell(engine.resourceHelper.GetIntPair("enddate_cell")).Trim();
+			engine.study.NAME = engine.GetExcelReader().GetCell(engine.resourceHelper.GetIntPair("name_cell")).Trim();
+			engine.study.TITLE = engine.GetExcelReader().GetCell(engine.resourceHelper.GetIntPair("title_cell")).Trim();
+			engine.study.STARTDATE = engine.GetExcelReader().GetCell(engine.resourceHelper.GetIntPair("startdate_cell")).Trim();
+			engine.study.ENDDATE = engine.GetExcelReader().GetCell(engine.resourceHelper.GetIntPair("enddate_cell")).Trim();
 		}
 	}
 }
