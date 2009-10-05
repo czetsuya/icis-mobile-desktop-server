@@ -1,0 +1,15 @@
+[czetsuya=U03WSHB]
+[GRNYLD]
+2=3
+17=20
+[PLTHT]
+2=7
+3=5
+4=9
+17=5
+[FLW]
+2=flw
+17=20
+[PACP]
+2=pacp
+17=20

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<study>
+	<study-name>{name}</study-name>
+	<study-title>{title}</study-title>
+	<study-start-date>{start-date}</study-start-date>
+	<study-end-date>{end-date}</study-end-date>
+	<factors>		
+		{factors}
+	</factors>
+	<variates>
+		{variates}
+	</variates>
+	<scales>
+		{scales}
+	</scales>
+</study>
