@@ -21,14 +21,14 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			int[] x_variate = engine.resourceHelper.GetIntPair("variate_cell");
 			int row_index = x_variate[0];
 			
-			while(engine.GetCell(row_index, x_variate[1]) != "") 
+			while(engine.GetExcelReader().GetCell(row_index, x_variate[1]) != "") 
 			{
 				Variate variate = new Variate();
-				variate.NAME = engine.GetCell(row_index, x_variate[1]);
-				variate.PROPERTY = engine.GetCell(row_index, engine.column_index[0]);
-				variate.SCALE = engine.GetCell(row_index, engine.column_index[1]);
-				variate.METHOD = engine.GetCell(row_index, engine.column_index[2]);
-				variate.DATATYPE = engine.GetCell(row_index, engine.column_index[3]);
+				variate.NAME = engine.GetExcelReader().GetCell(row_index, x_variate[1]);
+				variate.PROPERTY = engine.GetExcelReader().GetCell(row_index, engine.column_index[0]);
+				variate.SCALE = engine.GetExcelReader().GetCell(row_index, engine.column_index[1]);
+				variate.METHOD = engine.GetExcelReader().GetCell(row_index, engine.column_index[2]);
+				variate.DATATYPE = engine.GetExcelReader().GetCell(row_index, engine.column_index[3]);
 
 				engine.study.AddVariate(variate);
 				row_index++;

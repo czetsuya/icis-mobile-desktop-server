@@ -12,9 +12,10 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 	/// <summary>
 	/// Summary description for ExcelReader.
 	/// </summary>
-	public abstract class ExcelReader
+	public class ExcelReader
 	{
 		private Microsoft.Office.Interop.Excel.ApplicationClass excelApp;
+		private Workbooks workBooks;
 		private Workbook workBook;
 		private Worksheet workSheet;
 
@@ -22,7 +23,9 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 		{
 			excelApp = new ApplicationClass();
 			Missing m = Missing.Value;
-			workBook = excelApp.Workbooks.Open(docname, m, m, m, m, m, m, m, m, m, m, m, m, m, m);
+			workBooks = excelApp.Workbooks;
+			workBook = workBooks.Open(docname, m, m, m, m, m, m, m, m, m, m, m, m, m, m);
+			//workBook = excelApp.Workbooks.Open(docname, m, m, m, m, m, m, m, m, m, m, m, m, m, m);
 			SelectWorksheet(1);
 		}
 
@@ -46,7 +49,7 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 				Helper.LogHelper.Instance().WriteLog(e.Message);
 			}
 			return "";
-		}
+		}		
 
 		public String GetCell(int[] x) 
 		{
@@ -115,11 +118,25 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 				return (String)r.Value2;
 		}
 
+		public void SetCell(int x, int y, object val) 
+		{
+			workSheet.Cells[x, y] = val;
+		}
+
+		public void Save() 
+		{
+			workBook.Save();
+		}
+
 		public void DisposeExcel() 
 		{
 			if(excelApp != null) 
 			{	
 				excelApp.Quit();
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(workBook);
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(workBooks);
+				GC.Collect();
+				GC.WaitForPendingFinalizers();
 			}
 		}
 	}

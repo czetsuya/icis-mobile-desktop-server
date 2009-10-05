@@ -81,6 +81,9 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			}
 		}
 
-
+		public static bool IsExists(string path) 
+		{
+			return File.Exists(path);
+		}
 	}
 }

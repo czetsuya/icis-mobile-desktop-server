@@ -21,6 +21,12 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			rm = new ResourceManager("IcisMobileDesktopServer.Resource." + resource, System.Reflection.Assembly.GetExecutingAssembly());
 		}
 
+		public static string GetStaticString(string resource, string name) 
+		{
+			ResourceManager rm = new ResourceManager("IcisMobileDesktopServer.Resource." + resource, System.Reflection.Assembly.GetExecutingAssembly());
+			return rm.GetString(name);
+		}
+
 		public String GetString(String name)
 		{
 			try 

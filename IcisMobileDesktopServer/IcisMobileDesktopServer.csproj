@@ -113,6 +113,11 @@
                     Lcid = "0"
                     WrapperTool = "primary"
                 />
+                <Reference
+                    Name = "SplashScreen"
+                    AssemblyName = "SplashScreen"
+                    HintPath = "..\..\lib\SplashScreen.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -151,6 +156,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Framework\Builder\ExcelDataBuilder.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Framework\Builder\FactorBuilder.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -167,6 +177,11 @@
                 />
                 <File
                     RelPath = "Framework\DataCollection\AbstractType.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Framework\DataCollection\DeviceData.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -235,6 +250,7 @@
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
+                <Folder RelPath = "Framework\Util\" />
                 <File
                     RelPath = "Framework\Xml\XmlBuilder.cs"
                     SubType = "Code"
@@ -245,8 +261,20 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Resource\error.resx"
+                    RelPath = "Resource\messages.resx"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Resource\Images\icis-banner-small.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Resource\Images\icis-loader.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Resource\Images\icon.ico"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "Resource\Schema\abstract_type.xml"

@@ -54,6 +54,7 @@ namespace IcisMobileDesktopServer
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(frmSelectFactor));
 			this.lbFactors = new System.Windows.Forms.ListBox();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnSelect = new System.Windows.Forms.Button();
@@ -91,7 +92,9 @@ namespace IcisMobileDesktopServer
 			this.Controls.Add(this.btnSelect);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.lbFactors);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "frmSelectFactor";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "frmSelectFactor";
 			this.ResumeLayout(false);
 

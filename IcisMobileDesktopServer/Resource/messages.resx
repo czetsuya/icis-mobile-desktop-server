@@ -39,67 +39,31 @@
 	<resheader name="Writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="name_cell">
-		<value>1,2</value>
+	<data name="conn_timeout">
+		<value>Connection timeout. Please make Please check if the mobile device is connected.</value>
 	</data>
-	<data name="title_cell">
-		<value>2,2</value>
+	<data name="err_obs_sheet">
+		<value>Please verify the observation sheet data.</value>
 	</data>
-	<data name="startdate_cell">
-		<value>5,2</value>
+	<data name="m_perform_download">
+		<value>Study data file in mobile device is not yet ready for download. Please make sure the device is connected and that a study data is ready for download.</value>
 	</data>
-	<data name="enddate_cell">
-		<value>6,2</value>
+	<data name="m_download_ok">
+		<value>Workbook has been successfully updated.</value>
 	</data>
-	<data name="factor_cell">
-		<value>13,1</value>
+	<data name="m_download_failed">
+		<value>Please save the data in the mobile device, make sure that the handheld is connected and the excel document is not currently in use.</value>
 	</data>
-	<data name="variate_cell">
-		<value>22,1</value>
+	<data name="m_study_not_match">
+		<value>Study mismatch. Please check if you are loading the correct workbook study.</value>
 	</data>
-	<data name="property_column">
-		<value>3</value>
+	<data name="m_workbook_invalid">
+		<value>Workbook file is invalid.</value>
 	</data>
-	<data name="scale_column">
-		<value>4</value>
+	<data name="m_accessdb_invalid">
+		<value>Access database path is not valid. Please correct to continue.</value>
 	</data>
-	<data name="method_column">
-		<value>5</value>
-	</data>
-	<data name="datatype_column">
-		<value>6</value>
-	</data>
-	<data name="schema_study">
-		<value>/Resource/Schema/study.xml</value>
-	</data>
-	<data name="abstracttype_study">
-		<value>/Resource/Schema/abstract_type.xml</value>
-	</data>
-	<data name="copy_dir">
-		<value>/Program Files/IcisMobile/</value>
-	</data>
-	<data name="resource_path">
-		<value>/Resource/</value>
-	</data>
-	<data name="study_data_file" mimetype="">
-		<value>study_data.xml</value>
-	</data>
-	<data name="study_observation_data_file">
-		<value>study_data.txt</value>
-	</data>
-	<data name="default_path_lookup">
-		<value>C:\ICIS5</value>
-	</data>
-	<data name="scale_schema">
-		<value>/Resource/Schema/scale.xml</value>
-	</data>
-	<data name="factor_schema">
-		<value>/Resource/Schema/factor.xml</value>
-	</data>
-	<data name="study_data_file">
-		<value>study_device_saved.txt</value>
-	</data>
-	<data name="">
-		<value></value>
+	<data name="m_factorselect">
+		<value>Please select factor to continue.</value>
 	</data>
 </root>
