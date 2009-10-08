@@ -100,7 +100,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// lblHeader1
 			// 
-			this.lblHeader1.Location = new System.Drawing.Point(0, 88);
+			this.lblHeader1.Location = new System.Drawing.Point(0, 85);
 			this.lblHeader1.Name = "lblHeader1";
 			this.lblHeader1.Size = new System.Drawing.Size(384, 23);
 			this.lblHeader1.TabIndex = 0;
@@ -219,7 +219,7 @@ namespace IcisMobileDesktopServer
 			// 
 			this.progressBar1.Location = new System.Drawing.Point(1, 335);
 			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(224, 23);
+			this.progressBar1.Size = new System.Drawing.Size(175, 23);
 			this.progressBar1.TabIndex = 12;
 			this.progressBar1.Visible = false;
 			// 
@@ -269,18 +269,21 @@ namespace IcisMobileDesktopServer
 		[STAThread]
 		static void Main() 
 		{
+			//Sets the registry values for splash screen
 			SplashScreen.RegistryAccess.SetStringRegistryValue("SOFTWARE_KEY", "Software");
 			SplashScreen.RegistryAccess.SetStringRegistryValue("COMPANY_NAME", "IRRI");
 			SplashScreen.RegistryAccess.SetStringRegistryValue("APPLICATION_NAME", "ICIS Mobile");
-			
-			
 
 			Application.Run(new frmAppMain());
 		}
 		#endregion
 				
+		/// <summary>
+		/// Initialize the ICIS Desktop application.
+		/// </summary>
 		private void InitializeICIS() 
 		{
+			//starts splash screen
 			SplashScreen.SplashScreen.ShowSplashScreen(); 
 			Application.DoEvents();
 			SplashScreen.SplashScreen.SetStatus("Initializing ICIS Mobile.");
@@ -290,6 +293,7 @@ namespace IcisMobileDesktopServer
 			SplashScreen.SplashScreen.SetStatus("Initializing ICIS Mobile...");
 			System.Threading.Thread.Sleep(1000);
 
+			//set default values for dms database
 			String default_dir = @"C:\ICIS5";
 			ofddmscentral.InitialDirectory = default_dir;
 			ofddmslocal.InitialDirectory = default_dir;
@@ -303,12 +307,18 @@ namespace IcisMobileDesktopServer
 
 			timerBtn.Tick += new EventHandler(timerBtn_Tick);
 
+			//Set the owner of the splash screen instance to this form
 			if( SplashScreen.SplashScreen.SplashForm != null )
 				SplashScreen.SplashScreen.SplashForm.Owner = this;
 			this.Activate();
 			SplashScreen.SplashScreen.CloseForm();
 		}
 
+		/// <summary>
+		/// Select workbook.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void btnOpenFD_Click(object sender, System.EventArgs e)
 		{
 			if(ofdSelWb.ShowDialog() == DialogResult.OK) 
@@ -317,14 +327,21 @@ namespace IcisMobileDesktopServer
 			}
 		}
 
+		/// <summary>
+		/// Process the workbook, create an xml and text file representation of study
+		/// and upload that to mobile device.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void btnProcess_Click(object sender, System.EventArgs e)
 		{
 			if(FileHelper.IsExists(tbDMSCentral.Text) && FileHelper.IsExists(tbDMSLocal.Text)) 
 			{
+				btnProcess.Text = ResourceHelper.GetStaticString("messages", "m_uploading");
 				btnProcess.Enabled = false;
 				timerBtn.Enabled = true;
 				if(!engine.Process()) 
-				{
+				{ //no selected factor yet
                     MessageHelper.ShowError(ResourceHelper.GetStaticString("messages", "m_factorselect"));
 				}
 			} 
@@ -334,17 +351,31 @@ namespace IcisMobileDesktopServer
 			}
 		}
 
+		/// <summary>
+		/// Terminates the application.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void btnExit_Click(object sender, System.EventArgs e)
 		{
 			Application.Exit();
 		}
 
+		/// <summary>
+		/// Override onClosing, so we can close open connections and dispose objects.
+		/// </summary>
+		/// <param name="e"></param>
 		protected override void OnClosing(CancelEventArgs e)
 		{
 			engine.Dispose();
 			base.OnClosing (e);
 		}
 
+		/// <summary>
+		/// Select local dms database.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void btnLocalDMS_Click(object sender, System.EventArgs e)
 		{
 			if(ofddmslocal.ShowDialog() == DialogResult.OK) 
@@ -353,6 +384,11 @@ namespace IcisMobileDesktopServer
 			}
 		}
 
+		/// <summary>
+		/// Select central dms database.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void btnCentralDMS_Click(object sender, System.EventArgs e)
 		{
 			if(ofddmscentral.ShowDialog() == DialogResult.OK) 
@@ -361,6 +397,11 @@ namespace IcisMobileDesktopServer
 			}
 		}
 
+		/// <summary>
+		/// Select factors from workbook.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void btnSelFacs_Click(object sender, System.EventArgs e)
 		{
 			if(FileHelper.IsExists(tbWB.Text))
@@ -375,9 +416,15 @@ namespace IcisMobileDesktopServer
 			}
 		}
 
+		/// <summary>
+		/// Downloads data from device.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void btnFromDevice_Click(object sender, System.EventArgs e)
 		{
 			timerBtn.Enabled = true;
+			btnFromDevice.Text = "Downloading...";
 			btnFromDevice.Enabled = false;
 			string data_file = engine.DownloadFromDevice();			
 			
@@ -392,10 +439,17 @@ namespace IcisMobileDesktopServer
 			}
 		}
 
+		/// <summary>
+		/// Enable/disable the upload/download buttons.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void timerBtn_Tick(object sender, EventArgs e)
 		{
 			btnProcess.Enabled = true;
 			btnFromDevice.Enabled = true;
+			btnProcess.Text = "Upload to Device";
+			btnFromDevice.Text = "Download from Device";
 			timerBtn.Enabled = false;
 		}
 	}

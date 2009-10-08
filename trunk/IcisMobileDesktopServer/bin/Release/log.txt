@@ -1,0 +1,4 @@
+>10/6/2009 4:06:56 PM
+Could not find a part of the path "C:\projects\dotnet\win32\IcisMobileDesktopServer\bin\Release\Resource\study_data.txt".
+>10/6/2009 4:07:04 PM
+Could not find a part of the path "C:\projects\dotnet\win32\IcisMobileDesktopServer\bin\Release\Resource\study_data.txt".

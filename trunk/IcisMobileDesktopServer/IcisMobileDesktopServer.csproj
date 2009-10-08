@@ -7,7 +7,7 @@
     >
         <Build>
             <Settings
-                ApplicationIcon = "App.ico"
+                ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
                 AssemblyName = "IcisMobileDesktopServer"
                 AssemblyOriginatorKeyFile = ""
@@ -123,11 +123,8 @@
         <Files>
             <Include>
                 <File
-                    RelPath = "App.ico"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -231,11 +228,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Framework\Helper\RapiHelper.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "Framework\Helper\ResourceHelper.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -250,7 +242,6 @@
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
-                <Folder RelPath = "Framework\Util\" />
                 <File
                     RelPath = "Framework\Xml\XmlBuilder.cs"
                     SubType = "Code"

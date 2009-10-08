@@ -1,6 +1,7 @@
 /**
  * @author edwardpantojalegaspi
  * @since 2009.09.15
+ * This class is the controller of this the application.
  * */
 
 using System;
@@ -21,6 +22,7 @@ namespace IcisMobileDesktopServer.Framework
 	/// </summary>
 	public class Engine
 	{
+		#region Members
 		internal Study study;
 		internal ResourceHelper resourceHelper;
 		internal ResourceHelper errResourceHelper;
@@ -33,6 +35,7 @@ namespace IcisMobileDesktopServer.Framework
 		internal int readFactors;
 		private ExcelReader excelReader;
 		internal System.Windows.Forms.ProgressBar progressBar;
+		#endregion
 
 		/// <summary>
 		/// Creates an instance of this object.
@@ -45,6 +48,7 @@ namespace IcisMobileDesktopServer.Framework
 			study = new DataCollection.Study();
 			resourceHelper = new ResourceHelper("config");
 			errResourceHelper = new ResourceHelper("messages");
+			//device connection manager
 			rapi = new RAPI.Rapi(this);
 
 			//gets the default application path
@@ -52,11 +56,17 @@ namespace IcisMobileDesktopServer.Framework
 			executableDirectoryName = executableFileInfo.DirectoryName;
 		}
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="docname"></param>
 		public void Initialize(String docname)
 		{
+			//initialize the object that reads the excel workbook
 			excelReader = new ExcelReader();
 			excelReader.InitExcel(docname);
 
+			//gets the location of these excel values from config files
 			column_index = new int[4];
 			column_index[0] = resourceHelper.GetInt("property_column");
 			column_index[1] = resourceHelper.GetInt("scale_column");
@@ -66,6 +76,9 @@ namespace IcisMobileDesktopServer.Framework
 
 	
 		#region Filter Factors
+		/// <summary>
+		/// Shows the form filter for factors.
+		/// </summary>
 		public void ShowFilterFactors() 
 		{
 			int[] x_factor = resourceHelper.GetIntPair("factor_cell");
@@ -83,6 +96,11 @@ namespace IcisMobileDesktopServer.Framework
 			frmTemp.Show();
 		}
 
+		/// <summary>
+		/// Saves the selected factors.
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <param name="s"></param>
 		public void SetFilteredFactors(frmSelectFactor obj, string s) 
 		{
 			if(s.IndexOf("|") != -1) 
@@ -99,6 +117,11 @@ namespace IcisMobileDesktopServer.Framework
 		}
 		#endregion
 
+		/// <summary>
+		/// Sets the path of local and central dms database.
+		/// </summary>
+		/// <param name="central"></param>
+		/// <param name="local"></param>
 		public void SetDatabase(String central, String local) 
 		{
 			localDMS = local;
@@ -124,13 +147,14 @@ namespace IcisMobileDesktopServer.Framework
 
 			if(flag) 
 			{
+				//sets the xml template of study, abstract type, factor and scale
 				String studyPath = executableDirectoryName + resourceHelper.GetString("schema_study");
 				Xml.XmlBuilder xmlBuilder = new Xml.XmlBuilder(studyPath);
 				xmlBuilder.SetAbstractTypeSchema(executableDirectoryName + resourceHelper.GetString("abstracttype_study"));
 				xmlBuilder.SetFactorSchema(executableDirectoryName + resourceHelper.GetString("factor_schema"));
 				xmlBuilder.SetScaleSchema(executableDirectoryName + resourceHelper.GetString("scale_schema"));
 			
-				//get the base directory and file name and adds _output
+				//get the base directory and file name of study and adds _output
 				int period = studyPath.LastIndexOf(".");
 				int ext_length = studyPath.Substring(period).Length;
 				studyPath = studyPath.Substring(0, period) + "_output" + studyPath.Substring(period, ext_length);
@@ -138,10 +162,13 @@ namespace IcisMobileDesktopServer.Framework
 				//populate the data object study, replace the xml marker
 				xmlBuilder.Process(study, studyPath);
 
+				//xml file data of study
 				String mobileStudyName = resourceHelper.GetString("study_data_file");
 				SplashScreen.SplashScreen.SetStatus("Copying to device...");
+				//copy the study to the mobile device
 				rapi.CopyFilePCtoPDA(studyPath, resourceHelper.GetString("copy_dir") + mobileStudyName);
 
+				//quit the excel app
 				excelReader.DisposeExcel();
 				SplashScreen.SplashScreen.CloseForm();
 			} 
@@ -158,23 +185,28 @@ namespace IcisMobileDesktopServer.Framework
 			bool flag = true;
 			SplashScreen.SplashScreen.SetStatus("Reading study");
 			System.Threading.Thread.Sleep(500);
+			//set the properties of study
 			StudyBuilder.SetStudyProperties(this);
 
 			SplashScreen.SplashScreen.SetStatus("Reading factors");
 			System.Threading.Thread.Sleep(500);
+			//set the factors
 			FactorBuilder.SetFactors(this);
 
 			SplashScreen.SplashScreen.SetStatus("Reading variates");
 			System.Threading.Thread.Sleep(500);
+			//set the variates
 			VariateBuilder.SetVariates(this);
 			
 			//save the data to a file
 			String studyPath = executableDirectoryName + resourceHelper.GetString("resource_path"); 
 
+			//get the path where data will be save
 			String studyFile = resourceHelper.GetString("study_observation_data_file");
 
 			SplashScreen.SplashScreen.SetStatus("Writing study to file...");
 			System.Threading.Thread.Sleep(1000);
+			//write the data to file
 			FileHelper.WriteToFile(studyPath + studyFile, FactorBuilder.SetFactorValues(this));
 
 			//copy the file to the mobile device
@@ -208,10 +240,10 @@ namespace IcisMobileDesktopServer.Framework
 			string to = "";
 			try 
 			{
-				string fname = resourceHelper.GetString("study_data_file");
+				string fname = resourceHelper.GetString("study_save_data_file");
 				from = resourceHelper.GetString("copy_dir") + fname;
 				to = executableDirectoryName +"/"+ fname;
-				rapi.CopyPDAtoPC(to, from);
+				rapi.CopyPDAtoPC(to, from); //copy data to mobile device
 			} 
 			catch(Exception e)
 			{
@@ -227,11 +259,19 @@ namespace IcisMobileDesktopServer.Framework
 		/// </summary>
 		public void Dispose() 
 		{
-			rapi.Dispose();
-			excelReader.DisposeExcel();
-			LogHelper.Instance().Dispose();
+			try 
+			{
+				rapi.Dispose();
+				excelReader.DisposeExcel();
+				LogHelper.Instance().Dispose();
+			} 
+			catch(Exception e) { }
 		}
 
+		/// <summary>
+		/// Gets the ExcelReader instance.
+		/// </summary>
+		/// <returns>ExcelReader</returns>
 		public ExcelReader GetExcelReader() 
 		{
 			return excelReader;
@@ -244,9 +284,11 @@ namespace IcisMobileDesktopServer.Framework
 		/// <param name="inputfile"></param>
 		public void WriteToExcel(string excelfile, string inputfile) 
 		{
+			ExcelDataBuilder excelBuilder = new ExcelDataBuilder(this, excelfile); 
 			try 
 			{
-				if(new ExcelDataBuilder(this, excelfile).Process(inputfile))
+				//start writing
+				if(excelBuilder.Process(inputfile))
 					MessageHelper.ShowInfo(errResourceHelper.GetString("m_download_ok"));
 			} 
 			catch(Exception e) 
@@ -254,7 +296,10 @@ namespace IcisMobileDesktopServer.Framework
 				LogHelper.Instance().WriteLog(e.Message);
 				MessageHelper.ShowInfo(errResourceHelper.GetString("m_download_failed"));
 			}
-			
+			finally 
+			{
+				excelBuilder.Dispose();
+			}
 		}
 	}
 }

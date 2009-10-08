@@ -1,3 +1,8 @@
+/**
+ * @author edwardpantojalegaspi
+ * @since 2009.09.15
+ * */
+
 using System;
 using System.Drawing;
 using System.Collections;
@@ -71,7 +76,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// btnCancel
 			// 
-			this.btnCancel.Location = new System.Drawing.Point(48, 216);
+			this.btnCancel.Location = new System.Drawing.Point(160, 216);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.TabIndex = 1;
 			this.btnCancel.Text = "Cancel";
@@ -79,7 +84,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// btnSelect
 			// 
-			this.btnSelect.Location = new System.Drawing.Point(152, 216);
+			this.btnSelect.Location = new System.Drawing.Point(48, 216);
 			this.btnSelect.Name = "btnSelect";
 			this.btnSelect.TabIndex = 2;
 			this.btnSelect.Text = "Select";
@@ -112,6 +117,10 @@ namespace IcisMobileDesktopServer
 			this.engine = engine;
 		}
 
+		/// <summary>
+		/// Fill the list with plant values.
+		/// </summary>
+		/// <param name="arrTemp"></param>
 		public void SetList(ArrayList arrTemp) 
 		{
 			foreach(string s in arrTemp) 
@@ -120,11 +129,21 @@ namespace IcisMobileDesktopServer
 			}
 		}
 
+		/// <summary>
+		/// Cancel and return to the main form.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
 			this.Hide();
 		}
 
+		/// <summary>
+		/// Event that handles item click of the listbox.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void btnSelect_Click(object sender, System.EventArgs e)
 		{
 			if(lbFactors.SelectedItems.Count > 2) 
@@ -144,11 +163,18 @@ namespace IcisMobileDesktopServer
 			engine.SetFilteredFactors(this, sb.ToString());
 		}
 
+		/// <summary>
+		/// Gets the index of the selected factors.
+		/// </summary>
+		/// <returns>string</returns>
 		public string GetSelectedFactors() 
 		{
 			return sb.ToString();
 		}
 
+		/// <summary>
+		/// Removes all the items in the list box.
+		/// </summary>
 		public void Destroy() 
 		{
 			lbFactors.Items.Clear();

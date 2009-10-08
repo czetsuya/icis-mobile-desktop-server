@@ -15,9 +15,12 @@ namespace IcisMobileDesktopServer.Framework.Helper
 	public class LogHelper
 	{
 		private static LogHelper instance = null;
-		private const String LOGFILE = "//log.txt";
+		private const String LOGFILE = "//log.txt"; //default log file
 		private String executableDirectoryName;
 
+		/// <summary>
+		/// Creates the log file in the base directory of the application.
+		/// </summary>
 		public LogHelper()
 		{
 			FileInfo executableFileInfo = new FileInfo(Application.ExecutablePath);
@@ -28,6 +31,10 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			}
 		}
 
+		/// <summary>
+		/// Creates an instance of the logger class.
+		/// </summary>
+		/// <returns>LogHelper</returns>
 		public static LogHelper Instance() 
 		{
 			if(instance == null) 
@@ -37,6 +44,10 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			return instance;
 		}
 
+		/// <summary>
+		/// Writes log.
+		/// </summary>
+		/// <param name="log">string</param>
 		public void WriteLog(String log) 
 		{
 			StreamWriter writer = null;
@@ -44,7 +55,7 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			try 
 			{
 				if(!File.Exists(executableDirectoryName + LOGFILE)) 
-				{
+				{ //file does not exists so create
 					using(writer = File.CreateText(executableDirectoryName + LOGFILE))
 					{
 						writer.WriteLine("ICIS-Mobile Log");
@@ -54,7 +65,7 @@ namespace IcisMobileDesktopServer.Framework.Helper
 					}
 				} 
 				else 
-				{
+				{ //file exists - append
 					using(writer = File.AppendText(executableDirectoryName + LOGFILE))
 					{
 						writer.WriteLine(">" + DateTime.Now.ToString());
@@ -75,6 +86,9 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			}
 		}
 
+		/// <summary>
+		/// Dispose this object.
+		/// </summary>
 		public void Dispose() 
 		{
 			instance.Dispose();

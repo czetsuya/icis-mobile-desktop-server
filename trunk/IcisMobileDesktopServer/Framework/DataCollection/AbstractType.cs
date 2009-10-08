@@ -12,14 +12,40 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 	/// </summary>
 	public abstract class AbstractType
 	{
+		#region Members
+		/// <summary>
+		/// Object name
+		/// </summary>
 		private String name;
+		/// <summary>
+		/// Object property
+		/// </summary>
 		private String property;
+		/// <summary>
+		/// Object property id
+		/// </summary>
 		private String propertyid;
+		/// <summary>
+		/// Object scale
+		/// </summary>
 		private String scale;
+		/// <summary>
+		/// Object method
+		/// </summary>
 		private String method;
+		/// <summary>
+		/// Object datatype (N or C)
+		/// </summary>
 		private String datatype;
+		/// <summary>
+		/// Object scale id
+		/// </summary>
 		private String scaleid;
+		#endregion
 
+		/// <summary>
+		/// Initiliaze the default values of the member variables.
+		/// </summary>
 		public AbstractType()
 		{
 			name = "";
@@ -29,7 +55,8 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 			datatype = "";
 			scaleid = "";
 		}
-
+	
+		#region Properties, obvious names
 		public String NAME 
 		{
 			set { name = value; }
@@ -71,5 +98,6 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 			set { scaleid = value; }
 			get { return scaleid; }
 		}
+		#endregion
 	}
 }

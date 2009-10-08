@@ -18,6 +18,12 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			conn.ConnectionString = String.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};", path);
 		}
 
+		/// <summary>
+		/// Gets the value of the data reader.
+		/// </summary>
+		/// <param name="reader">data reader</param>
+		/// <param name="i">index</param>
+		/// <returns>object</returns>
 		private object GetValue(OleDbDataReader reader, int i) 
 		{
 			object obj = "";
@@ -39,6 +45,11 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			return obj;
 		}
 
+		/// <summary>
+		/// Get a pair of values from a reader
+		/// </summary>
+		/// <param name="sql">sql statement</param>
+		/// <returns>string[]</returns>
 		public String[] GetPair(String sql)
 		{
 			String[] str = null;
@@ -69,6 +80,11 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			return str;
 		}
 
+		/// <summary>
+		/// Gets a scalar value.
+		/// </summary>
+		/// <param name="sql">sql statement</param>
+		/// <returns>string</returns>
 		public String GetScalar(String sql)
 		{
 			String str = "";
@@ -97,6 +113,11 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			return str;
 		}
 
+		/// <summary>
+		/// Gets a dataset.
+		/// </summary>
+		/// <param name="sql">sql statement</param>
+		/// <returns>DataSet</returns>
 		public DataSet Query(String sql) 
 		{
 			DataSet ds = null;
@@ -118,6 +139,9 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			return ds;
 		}
 
+		/// <summary>
+		/// Dispose this object.
+		/// </summary>
 		public void Dispose() 
 		{
 			conn.Close();

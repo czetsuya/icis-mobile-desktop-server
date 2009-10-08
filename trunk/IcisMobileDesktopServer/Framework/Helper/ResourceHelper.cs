@@ -16,17 +16,32 @@ namespace IcisMobileDesktopServer.Framework.Helper
 		//public static ResourceHelper instance = null;
 		private ResourceManager rm;
 
+		/// <summary>
+		/// Initialize this resource manager.
+		/// </summary>
+		/// <param name="resource"></param>
 		public ResourceHelper(String resource) 
 		{	
 			rm = new ResourceManager("IcisMobileDesktopServer.Resource." + resource, System.Reflection.Assembly.GetExecutingAssembly());
 		}
 
+		/// <summary>
+		/// Gets a resource value. This method is use when this method is not instantiated yet.
+		/// </summary>
+		/// <param name="resource">resource file (resx)</param>
+		/// <param name="name">resource key</param>
+		/// <returns></returns>
 		public static string GetStaticString(string resource, string name) 
 		{
 			ResourceManager rm = new ResourceManager("IcisMobileDesktopServer.Resource." + resource, System.Reflection.Assembly.GetExecutingAssembly());
 			return rm.GetString(name);
 		}
 
+		/// <summary>
+		/// Gets a string resource.
+		/// </summary>
+		/// <param name="name">key</param>
+		/// <returns>string</returns>
 		public String GetString(String name)
 		{
 			try 
@@ -40,6 +55,11 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			}
 		}
 
+		/// <summary>
+		/// Gets a resource as integer pair. Coordinates in an excel document.
+		/// </summary>
+		/// <param name="str">key</param>
+		/// <returns>int[]</returns>
 		public int[] GetIntPair(String str)
 		{
 			str = GetString(str);
@@ -59,6 +79,11 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			return x;
 		}
 
+		/// <summary>
+		/// Gets int value from resource file
+		/// </summary>
+		/// <param name="name">key</param>
+		/// <returns>int</returns>
 		public int GetInt(String name)
 		{
 			try 

@@ -6,13 +6,13 @@ using System.Runtime.CompilerServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyTitle("")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("ICISMobile")]
+[assembly: AssemblyDescription("ICIS Mobile - Desktop Application")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("IRRI")]
+[assembly: AssemblyProduct("International Crop Information System")]
+[assembly: AssemblyCopyright("Copyright 2009")]
+[assembly: AssemblyTrademark("@author: czetsuya@gmail.com")]
 [assembly: AssemblyCulture("")]		
 
 //

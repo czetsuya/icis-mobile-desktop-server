@@ -13,11 +13,11 @@ namespace IcisMobileDesktopServer.Framework.Helper
 	/// </summary>
 	public class FileHelper
 	{
-		public FileHelper()
-		{
-			
-		}
-
+		/// <summary>
+		/// Reads an xml schema.
+		/// </summary>
+		/// <param name="file">source file</param>
+		/// <returns>string</returns>
 		public static String ReadAsSchema(String file) 
 		{
 			String ret = "";
@@ -43,6 +43,11 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			return ret;
 		}
 
+		/// <summary>
+		/// Writes schema to file.
+		/// </summary>
+		/// <param name="file">destination file</param>
+		/// <param name="s">string to write</param>
 		public static void WriteSchema(String file, String s) 
 		{
 			try 
@@ -62,6 +67,11 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			}
 		}
 
+		/// <summary>
+		/// Writes string to file. This class might be changed.
+		/// </summary>
+		/// <param name="file">destination file</param>
+		/// <param name="s">string to write</param>
 		public static void WriteToFile(String file, String s) 
 		{
 			try 
@@ -81,6 +91,11 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			}
 		}
 
+		/// <summary>
+		/// Checks if the specified file exists.
+		/// </summary>
+		/// <param name="path">file path</param>
+		/// <returns>bool</returns>
 		public static bool IsExists(string path) 
 		{
 			return File.Exists(path);

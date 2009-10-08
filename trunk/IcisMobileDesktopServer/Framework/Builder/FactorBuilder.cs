@@ -1,3 +1,7 @@
+/**
+ * @author edwardpantojalegaspi
+ * @since 2009.09.24
+ * */
 using System;
 using System.Data;
 
@@ -11,11 +15,10 @@ namespace IcisMobileDesktopServer.Framework.Builder
 	/// </summary>
 	public class FactorBuilder
 	{
-		public FactorBuilder()
-		{
-
-		}
-
+		/// <summary>
+		/// Reads the factor from workbook and save it to a factor data object.
+		/// </summary>
+		/// <param name="engine">Engine</param>
 		internal static void SetFactors(Engine engine) 
 		{
 			if(Engine.selFactors.Length == 0)
@@ -25,12 +28,12 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			string x = "";
 			
 			while((x = engine.GetExcelReader().GetCell(row_index, x_factor[1])) != "") 
-			{	
+			{  //read columnwise
 				bool hit = false;
 				for(int i = 0; i < Engine.selFactors.Length; i++) 
-				{
+				{ //factors count from worksheet 1, if more than the length then move to next row
 					if(Engine.selFactors[i].Equals(x)) 
-					{
+					{ //factor found
 						hit = true;
 						break;
 					}
@@ -41,6 +44,7 @@ namespace IcisMobileDesktopServer.Framework.Builder
 					continue;
 				}
 
+				//sets the factor values
 				Factor factor = new Factor();
 				factor.NAME = engine.GetExcelReader().GetCell(row_index, x_factor[1]);
 				factor.PROPERTY = engine.GetExcelReader().GetCell(row_index, engine.column_index[0]);
@@ -48,12 +52,18 @@ namespace IcisMobileDesktopServer.Framework.Builder
 				factor.METHOD = engine.GetExcelReader().GetCell(row_index, engine.column_index[2]);
 				factor.DATATYPE = engine.GetExcelReader().GetCell(row_index, engine.column_index[3]);
 
+				//add the factor to study
 				engine.study.AddFactor(factor);
+				//move to next row
 				row_index++;
 			}
 			engine.readFactors = row_index - x_factor[0];
 		}
 
+		/// <summary>
+		/// Sets the scale value of each factors.
+		/// </summary>
+		/// <param name="engine">Engine</param>
 		internal static void SetFactorScales(Engine engine) 
 		{
 			DataAccessHelper local = new DataAccessHelper(engine.localDMS);

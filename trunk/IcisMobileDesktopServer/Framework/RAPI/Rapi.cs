@@ -21,6 +21,12 @@ namespace IcisMobileDesktopServer.Framework.RAPI
 			this.engine = engine;
 		}
 
+		/// <summary>
+		/// Copies a file from Desktop to PDA.
+		/// </summary>
+		/// <param name="filePath">desktop source file</param>
+		/// <param name="desFile">mobile destination file</param>
+		/// <returns>true if file is transferred</returns>
 		public bool CopyFilePCtoPDA(String filePath, String desFile) 
 		{
 			bool flag = true;
@@ -101,6 +107,11 @@ namespace IcisMobileDesktopServer.Framework.RAPI
 			engine.progressBar.Refresh();
 		}
 
+		/// <summary>
+		/// Copies file from PDA to Desktop
+		/// </summary>
+		/// <param name="deskTopFileName">desktop destination file</param>
+		/// <param name="PDAFileName">mobile source file</param>
 		public void CopyPDAtoPC(string deskTopFileName, string PDAFileName)
 		{
 			engine.progressBar.Enabled = true;
@@ -110,6 +121,12 @@ namespace IcisMobileDesktopServer.Framework.RAPI
 			CopyPDAtoPC(deskTopFileName, PDAFileName, null);
 		}
 
+		/// <summary>
+		/// Copies file from PDA to Desktop
+		/// </summary>
+		/// <param name="deskTopFileName">desktop destination file</param>
+		/// <param name="PDAFileName">mobile source file</param>
+		/// <param name="cb"></param>
 		public void CopyPDAtoPC(string deskTopFileName, string PDAFileName, CopyFileCallBack cb)
 		{
 			int Handle;
@@ -170,6 +187,9 @@ namespace IcisMobileDesktopServer.Framework.RAPI
 			}            
 		}
 
+		/// <summary>
+		/// Dispose this object.
+		/// </summary>
 		public void Dispose() 
 		{
 			RapiApi.CeRapiUninit();
