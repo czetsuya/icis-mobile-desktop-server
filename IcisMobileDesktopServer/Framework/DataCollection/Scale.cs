@@ -8,14 +8,36 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 	/// </summary>
 	public class Scale
 	{
+		#region Members
+		/// <summary>
+		/// Scale id
+		/// </summary>
 		private String id;
+		/// <summary>
+		/// Scale name
+		/// </summary>
 		private String name;
+		/// <summary>
+		/// Scale type
+		/// </summary>
 		private String type;
+		/// <summary>
+		/// Scale continuous value from
+		/// </summary>
 		private String value1;
+		/// <summary>
+		/// Scale continuous value to
+		/// </summary>
 		private String value2;
-
+		/// <summary>
+		/// Discontinuous values
+		/// </summary>
 		private Hashtable disconval;
+		#endregion
 
+		/// <summary>
+		/// Initialize the member values.
+		/// </summary>
 		public Scale()
 		{
 			id = "";
@@ -25,6 +47,7 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 			value2 = "";
 		}
 
+		#region Properties
 		public String ID 
 		{
 			set { id = value; }
@@ -65,12 +88,22 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 			set { value2 = value; }
 			get { return value2; }
 		}
+		#endregion
 
+		/// <summary>
+		/// Adds a discontinuous value.
+		/// </summary>
+		/// <param name="key"></param>
+		/// <param name="val"></param>
 		public void AddDisconValue(object key, object val) 
 		{
 			disconval.Add(key, val);
 		}
 
+		/// <summary>
+		/// Checks if this object is discountinuous
+		/// </summary>
+		/// <returns>true</returns>
 		public bool IsDisContinuous() 
 		{
 			if(disconval == null)
@@ -79,6 +112,10 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 				return true;
 		}
 
+		/// <summary>
+		/// Gets the discontinuous values.
+		/// </summary>
+		/// <returns>strnig</returns>
 		public String GetDisconValues() 
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();

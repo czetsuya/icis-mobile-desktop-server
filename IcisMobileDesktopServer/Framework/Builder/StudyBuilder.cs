@@ -1,3 +1,7 @@
+/**
+ * @author edwardpantojalegaspi
+ * @since 2009.09.24
+ * */
 using System;
 
 using IcisMobileDesktopServer.Framework.DataCollection;
@@ -10,11 +14,10 @@ namespace IcisMobileDesktopServer.Framework.Builder
 	/// </summary>
 	public class StudyBuilder
 	{
-		public StudyBuilder()
-		{
-
-		}
-
+		/// <summary>
+		/// Sets the values of the study object.
+		/// </summary>
+		/// <param name="engine">Engine</param>
 		internal static void SetStudyProperties(Engine engine) 
 		{
 			engine.study.NAME = engine.GetExcelReader().GetCell(engine.resourceHelper.GetIntPair("name_cell")).Trim();

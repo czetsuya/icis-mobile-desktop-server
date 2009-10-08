@@ -1,3 +1,7 @@
+/**
+ * @author edwardpantojalegaspi
+ * @since 2009.09.24
+ * */
 using System;
 using System.Data;
 
@@ -11,11 +15,10 @@ namespace IcisMobileDesktopServer.Framework.Builder
 	/// </summary>
 	public class VariateBuilder
 	{
-		public VariateBuilder()
-		{
-
-		}
-
+		/// <summary>
+		/// Sets the values of variates.
+		/// </summary>
+		/// <param name="engine">Engine</param>
 		internal static void SetVariates(Engine engine) 
 		{
 			int[] x_variate = engine.resourceHelper.GetIntPair("variate_cell");
@@ -35,6 +38,11 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			}
 		}
 
+		/// <summary>
+		/// Sets the variate property id.
+		/// Property ID is used to filter the scale and method.
+		/// </summary>
+		/// <param name="engine">Engine</param>
 		internal static void SetVariatePropertyID(Engine engine) 
 		{
 			DataAccessHelper local = new DataAccessHelper(engine.localDMS);
@@ -49,11 +57,11 @@ namespace IcisMobileDesktopServer.Framework.Builder
 				result = local.GetScalar(sql);
 
 				if(result != "") 
-				{
+				{ //query local
 					variate.PROPERTYID = result;
 				}
 				else 
-				{
+				{ //else query central
 					result = central.GetScalar(sql);
 					variate.PROPERTYID = result;
 				}
@@ -63,7 +71,7 @@ namespace IcisMobileDesktopServer.Framework.Builder
 		}
 
 		/// <summary>
-		/// Set the scales
+		/// Set the scales.
 		/// </summary>
 		internal static void SetVariateScales(Engine engine) 
 		{
@@ -80,11 +88,11 @@ namespace IcisMobileDesktopServer.Framework.Builder
 				
 				result = local.GetPair(sql);
 				if(result != null) 
-				{
+				{ //query local
 					variate.SCALEID = result[0];
 				}
 				else 
-				{
+				{ //query local
 					result = central.GetPair(sql);
 					variate.SCALEID = result[0];
 				}

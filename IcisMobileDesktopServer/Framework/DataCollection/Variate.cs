@@ -12,9 +12,6 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 	/// </summary>
 	public class Variate : AbstractType
 	{
-		public Variate()
-		{
-			
-		}
+
 	}
 }

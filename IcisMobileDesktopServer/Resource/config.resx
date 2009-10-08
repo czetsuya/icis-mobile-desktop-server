@@ -96,7 +96,7 @@
 	<data name="factor_schema">
 		<value>/Resource/Schema/factor.xml</value>
 	</data>
-	<data name="study_data_file">
+	<data name="study_save_data_file">
 		<value>study_device_saved.txt</value>
 	</data>
 	<data name="">

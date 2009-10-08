@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <study>
-	<study-name>U03WSHB</study-name>
+	<study-name>U03WSHB2</study-name>
 	<study-title>Upland Hybridization Block 2003, Wet Season</study-title>
 	<study-start-date></study-start-date>
 	<study-end-date></study-end-date>
 	<factors>		
 		<factor>
-	<name>VARIETY/GID</name>
+	<name>ENTRYNO/VARIETY</name>
 </factor>
 	</factors>
 	<variates>
@@ -20,10 +20,10 @@
 	<data-type>N</data-type>
 </variate><variate>
 	<name>PLTHT</name>
-	<property>PLANT VIGOR</property>
-	<propertyid>1007</propertyid>
-	<scale>SES Score Vigor 5pt</scale>
-	<scaleid>1</scaleid>
+	<property>PLANT HEIGHT</property>
+	<propertyid>1006</propertyid>
+	<scale>cm</scale>
+	<scaleid>4</scaleid>
 	<method>At Maturity (Stages 7-9)</method>
 	<data-type>N</data-type>
 </variate><variate>
@@ -53,17 +53,12 @@
 	<value2>20</value2>
 	<value3>{value3}</value3>
 </scale><scale>
-	<id>1</id>
-	<name>SES Score Vigor 5pt</name>
-	<type>D</type>
+	<id>4</id>
+	<name>cm</name>
+	<type>C</type>
 	<value1></value1>
 	<value2></value2>
-	<value3>3|Vigorous (fast growing; plants at 4-5 leaf stage have 1-2 tillers in majority of population)
-1|Extra vigorous (very fast growing; plants at 5-leaf stage have 2 or more tillers in majority of population)
-7|Weak (plants somewhat stunted; 3-4 leaves; thin population; no tiller formation)
-9|Very weak (stunted growth; yellowing of leaves)
-5|Normal (plants at 4-leaf stage)
-</value3>
+	<value3>{value3}</value3>
 </scale><scale>
 	<id>70</id>
 	<name>No. of days</name>

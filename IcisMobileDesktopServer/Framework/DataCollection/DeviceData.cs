@@ -1,3 +1,8 @@
+/**
+ * @author edwardpantojalegaspi
+ * @since 2009.09.15
+ * */
+
 using System;
 using System.Collections;
 
@@ -8,15 +13,22 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 	/// </summary>
 	public class DeviceData
 	{
+		#region Members
+		/// <summary>
+		/// Variate name
+		/// </summary>
 		private string variate_name;
+		/// <summary>
+		/// Excel column number
+		/// </summary>
 		private int column_number;
-
+		/// <summary>
+		/// Array of values
+		/// </summary>
 		private ArrayList arrValues = new ArrayList();
+		#endregion
 
-		public DeviceData()
-		{
-		}
-
+		#region Properties, obvious names
 		public string NAME 
 		{
 			set { variate_name = value; }
@@ -38,6 +50,6 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 		{
 			return arrValues;
 		}
-
+		#endregion
 	}
 }

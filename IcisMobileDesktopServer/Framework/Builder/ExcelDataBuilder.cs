@@ -1,3 +1,8 @@
+/**
+ * @author edwardpantojalegaspi
+ * @since 2009.09.30
+ * This class writes the values from mobile device to excel document.
+ * */
 using System;
 using System.IO;
 using System.Collections;
@@ -14,6 +19,11 @@ namespace IcisMobileDesktopServer.Framework.Builder
 		private ExcelManager.ExcelReader excelObject;
 		private Engine engine;
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="engine"></param>
+		/// <param name="excelfile"></param>
 		public ExcelDataBuilder(Engine engine, string excelfile)
 		{
 			this.engine = engine;
@@ -21,6 +31,11 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			excelObject.InitExcel(excelfile);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="datafile"></param>
+		/// <returns></returns>
 		public bool Process(string datafile) 
 		{
 			//check if the same worksheet/study
@@ -34,11 +49,16 @@ namespace IcisMobileDesktopServer.Framework.Builder
 				excelObject.SelectWorksheet(2);
 				WriteToExcel(MatchExcelColumn(ReadFileToEnd(datafile)));
 				excelObject.Save();
-				excelObject.DisposeExcel();
 				return true;
 			}
 		}
 
+		/// <summary>
+		/// Checks if the study name retrieved from mobile is the same
+		/// as the name of the study in the selected workbook.
+		/// </summary>
+		/// <param name="datafile">file from mobile</param>
+		/// <returns>bool</returns>
 		private bool ValidateStudy(string datafile) 
 		{
 			excelObject.SelectWorksheet(1);
@@ -57,6 +77,11 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			return true;
 		}
 
+		/// <summary>
+		/// Gets the study name from file downloaded from mobile.
+		/// </summary>
+		/// <param name="datafile">file from mobile</param>
+		/// <returns>string</returns>
 		private string GetStudyNameFromFile(string datafile) 
 		{
 			string study_name = "";
@@ -79,6 +104,11 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			return study_name;
 		}
 
+		/// <summary>
+		/// Sets the value of specified excel cells based on the data
+		/// downloaded from the mobile.
+		/// </summary>
+		/// <param name="arrTemp">Array of data</param>
 		private void WriteToExcel(ArrayList arrTemp) 
 		{
 			foreach(DeviceData data in arrTemp) 
@@ -103,6 +133,12 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			}
 		}
 
+		/// <summary>
+		/// This function match the column number of each variate downloaded,
+		/// which will be used in filling the excel workbook cells with values.
+		/// </summary>
+		/// <param name="arrTemp">ArrayList of data</param>
+		/// <returns>ArrayList</returns>
 		private ArrayList MatchExcelColumn(ArrayList arrTemp) 
 		{
 			ArrayList newList = new ArrayList();
@@ -125,6 +161,11 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			return newList;
 		}
 
+		/// <summary>
+		/// Reads the data file and save the value to a temporary array of DeviceData object.
+		/// </summary>
+		/// <param name="datafile">data file from mobile</param>
+		/// <returns>ArrayList</returns>
 		private ArrayList ReadFileToEnd(string datafile) 
 		{
 			ArrayList arrTemp = new ArrayList();
@@ -151,6 +192,14 @@ namespace IcisMobileDesktopServer.Framework.Builder
 				}
 			}
 			return arrTemp;
+		}
+
+		/// <summary>
+		/// Dispose this object.
+		/// </summary>
+		public void Dispose() 
+		{
+			excelObject.DisposeExcel();
 		}
 	}
 }

@@ -14,11 +14,9 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 	{
 		private int col;
 
-		public Factor()
-		{
-			
-		}
-
+        /// <summary>
+        /// Factor column.
+        /// </summary>
 		public int COLUMN 
 		{
 			set { col = Convert.ToInt16(value); }

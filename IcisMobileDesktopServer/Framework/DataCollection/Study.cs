@@ -13,15 +13,38 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 	/// </summary>
 	public class Study
 	{
+		/// <summary>
+		/// List of factors
+		/// </summary>
 		private ArrayList factors;
+		/// <summary>
+		/// List of variates
+		/// </summary>
 		private ArrayList variates;
+		/// <summary>
+		/// List of scales
+		/// </summary>
 		private ArrayList scales;
-
+		/// <summary>
+		/// Study name
+		/// </summary>
 		private String name;
+		/// <summary>
+		/// Study title
+		/// </summary>
 		private String title;
+		/// <summary>
+		/// Study start date
+		/// </summary>
 		private String start_date;
+		/// <summary>
+		/// Study end data
+		/// </summary>
 		private String end_date;
 
+		/// <summary>
+		/// Initialize the study.
+		/// </summary>
 		public Study()
 		{
 			name = "";
@@ -34,6 +57,7 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 			scales = new ArrayList();
 		}
 
+		#region Properties
 		public String NAME 
 		{
 			set { name = value; }
@@ -57,7 +81,9 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 			set { end_date = value; }
 			get { return end_date; }
 		}
+		#endregion
 
+		#region Factor, Variates, Scales Setters and Getters
 		public void AddFactor(Factor f) 
 		{
 			factors.Add(f);
@@ -107,5 +133,6 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 		{
 			return scales;
 		}
+		#endregion
 	}
 }

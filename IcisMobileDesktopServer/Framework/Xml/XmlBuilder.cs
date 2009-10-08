@@ -12,16 +12,19 @@ namespace IcisMobileDesktopServer.Framework.Xml
 	/// </summary>
 	public class XmlBuilder
 	{
+		#region Members
 		private String studyPath;
 		private String abstractType;
 		private String scale_schema_file;
 		private String factorSchema;
+		#endregion
 
 		public XmlBuilder(String studyPath)
 		{
 			this.studyPath = studyPath;
 		}
 
+		#region Setter
 		public void SetStudySchema(String studyPath) 
 		{
 			this.studyPath = studyPath;
@@ -41,9 +44,17 @@ namespace IcisMobileDesktopServer.Framework.Xml
 		{
 			this.scale_schema_file = scale_schema_file;
 		}
+		#endregion
 
+		/// <summary>
+		/// Starts processing the data and fill the xml templates with values.
+		/// It also save the observation factors data to file.
+		/// </summary>
+		/// <param name="study"></param>
+		/// <param name="outputFile"></param>
 		public void Process(DataCollection.Study study, String outputFile) 
 		{
+			//reads the xml templates
 			String study_schema = Helper.FileHelper.ReadAsSchema(studyPath);
 			String abstracttype_schema = Helper.FileHelper.ReadAsSchema(abstractType);
 			String scale_schema = Helper.FileHelper.ReadAsSchema(scale_schema_file);
@@ -58,22 +69,11 @@ namespace IcisMobileDesktopServer.Framework.Xml
 			String factor_variate_schema = abstracttype_schema.Replace("abstract-type", "factor");
 			String abstract_list = "";
 			
-//			foreach(DataCollection.Factor obj in study.GetFactors()) 
-//			{
-//				String temp = factor_variate_schema;
-//				temp = temp.Replace("{name}", obj.NAME);
-//				temp = temp.Replace("{property}", obj.PROPERTY);
-//				temp = temp.Replace("{scale}", obj.SCALE);
-//				temp = temp.Replace("{method}", obj.METHOD);
-//				temp = temp.Replace("{data-type}", obj.DATATYPE);
-//				temp = temp.Replace("{scaleid}", obj.SCALEID);
-//				abstract_list += temp;
-//			}
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 			foreach(DataCollection.Factor obj in study.GetFactors()) 
 			{
 				sb.Append(obj.NAME);
-				sb.Append("/");
+				sb.Append("->");
 			}
 			sb = sb.Remove(sb.Length - 1, 1);
 			String stemp = Helper.FileHelper.ReadAsSchema(factorSchema);
@@ -119,6 +119,7 @@ namespace IcisMobileDesktopServer.Framework.Xml
 			study_schema = study_schema.Replace("{scales}", abstract_list);
 			//end scales
 
+			//writes the data to file
 			Helper.FileHelper.WriteSchema(outputFile, study_schema);
 		}
 	}

@@ -14,26 +14,42 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 	/// </summary>
 	public class ExcelReader
 	{
+		/// <summary>
+		/// excel application
+		/// </summary>
 		private Microsoft.Office.Interop.Excel.ApplicationClass excelApp;
 		private Workbooks workBooks;
 		private Workbook workBook;
 		private Worksheet workSheet;
 
+		/// <summary>
+		/// Initialize the excel object.
+		/// </summary>
+		/// <param name="docname"></param>
 		public void InitExcel(String docname) 
 		{
 			excelApp = new ApplicationClass();
 			Missing m = Missing.Value;
 			workBooks = excelApp.Workbooks;
 			workBook = workBooks.Open(docname, m, m, m, m, m, m, m, m, m, m, m, m, m, m);
-			//workBook = excelApp.Workbooks.Open(docname, m, m, m, m, m, m, m, m, m, m, m, m, m, m);
-			SelectWorksheet(1);
+			SelectWorksheet(1); //default sheet
 		}
 
+		/// <summary>
+		/// Select a worksheet.
+		/// </summary>
+		/// <param name="i"></param>
 		public void SelectWorksheet(int i) 
 		{
 			workSheet = (Worksheet)workBook.Sheets[i];
 		}
 
+		/// <summary>
+		/// Gets a value from an excel cell.
+		/// </summary>
+		/// <param name="x">cell row</param>
+		/// <param name="y">cell column</param>
+		/// <returns>string</returns>
 		public String GetCell(int x, int y) 
 		{
 			try 
@@ -47,15 +63,30 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 			catch(InvalidCastException e) 
 			{
 				Helper.LogHelper.Instance().WriteLog(e.Message);
+			} 
+			catch(System.Runtime.InteropServices.COMException e) 
+			{ 
+				Helper.LogHelper.Instance().WriteLog(e.Message);
 			}
 			return "";
 		}		
 
+		/// <summary>
+		/// Gets a value from an excel cell.
+		/// </summary>
+		/// <param name="x">cell coordinates</param>
+		/// <returns>string</returns>
 		public String GetCell(int[] x) 
 		{
 			return GetCell(x[0], x[1]);
 		}
 
+		/// <summary>
+		/// Gets a value from an excel cell.
+		/// </summary>
+		/// <param name="x">cell row</param>
+		/// <param name="y">cell column</param>
+		/// <returns>int</returns>
 		public int GetInt(int x, int y) 
 		{
 			int z = 0;
@@ -72,11 +103,22 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 			return z;
 		}
 
+		/// <summary>
+		/// Gets a value from an excel cell.
+		/// </summary>
+		/// <param name="x">cell coordinates</param>
+		/// <returns>int</returns>
 		public int GetInt(int[] x) 
 		{
 			return GetInt(x[0], x[1]);
 		}
 
+		/// <summary>
+		/// Gets a value from an excel cell.
+		/// </summary>
+		/// <param name="x">cell row</param>
+		/// <param name="y">cell column</param>
+		/// <returns>long</returns>
 		public long GetLong(int x, int y) 
 		{
 			long z = 0;
@@ -93,22 +135,44 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 			return z;
 		}
 
+		/// <summary>
+		/// Gets a value from an excel cell.
+		/// </summary>
+		/// <param name="x">cell coordinates</param>
+		/// <returns>long</returns>
 		public long GetLong(int[] x) 
 		{
 			return GetLong(x[0], x[1]);
 		}
 
+		/// <summary>
+		/// Gets a value from cell.
+		/// </summary>
+		/// <param name="x">row</param>
+		/// <param name="y">column</param>
+		/// <returns>object</returns>
 		public object GetObject(int x, int y) 
 		{
 			Range r = (Range)workSheet.Cells[x, y];
 			return r.Value2;
 		}
 
+		/// <summary>
+		/// Gets an object value from a cell.
+		/// </summary>
+		/// <param name="x">cell coordinate</param>
+		/// <returns>object</returns>
 		public object GetObject(int[] x) 
 		{
 			return GetObject(x[0], x[1]);
 		}
 
+		/// <summary>
+		/// Gets a value in a range of cells.
+		/// </summary>
+		/// <param name="x">cell row</param>
+		/// <param name="y">cell column</param>
+		/// <returns>string</returns>
 		public String GetRange(int x, int y) 
 		{
 			Range r = (Range)workSheet.Cells[x, y];
@@ -118,16 +182,28 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 				return (String)r.Value2;
 		}
 
+		/// <summary>
+		/// Sets the value of an excel cell.
+		/// </summary>
+		/// <param name="x">cell row</param>
+		/// <param name="y">cell column</param>
+		/// <param name="val">value</param>
 		public void SetCell(int x, int y, object val) 
 		{
 			workSheet.Cells[x, y] = val;
 		}
 
+		/// <summary>
+		/// Saves the open workbook.
+		/// </summary>
 		public void Save() 
 		{
 			workBook.Save();
 		}
 
+		/// <summary>
+		/// Quits and dispose the excel application.
+		/// </summary>
 		public void DisposeExcel() 
 		{
 			if(excelApp != null) 
