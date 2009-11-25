@@ -21,13 +21,16 @@ namespace IcisMobileDesktopServer.Framework.Builder
 		/// <param name="engine">Engine</param>
 		internal static void SetVariates(Engine engine) 
 		{
-			int[] x_variate = engine.resourceHelper.GetIntPair("variate_cell");
-			int row_index = x_variate[0];
+			int ctr = 1;
+			int col_index = 1;
+			while(!engine.GetExcelReader().GetCell(ctr++, col_index).Trim().ToUpper().Equals("VARIATE")) { }
+
+			int row_index = ctr;			
 			
-			while(engine.GetExcelReader().GetCell(row_index, x_variate[1]) != "") 
+			while(engine.GetExcelReader().GetCell(row_index, col_index) != "") 
 			{
 				Variate variate = new Variate();
-				variate.NAME = engine.GetExcelReader().GetCell(row_index, x_variate[1]);
+				variate.NAME = engine.GetExcelReader().GetCell(row_index, col_index);
 				variate.PROPERTY = engine.GetExcelReader().GetCell(row_index, engine.column_index[0]);
 				variate.SCALE = engine.GetExcelReader().GetCell(row_index, engine.column_index[1]);
 				variate.METHOD = engine.GetExcelReader().GetCell(row_index, engine.column_index[2]);
@@ -51,21 +54,26 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			String result;
 
 			for(int i = 0; i < engine.study.GetVariates().Count; i++) 
-			{	
+			{
 				Variate variate = engine.study.GetVariate(i);
-				sql = String.Format("SELECT traitid FROM trait WHERE TRNAME='{0}'", variate.PROPERTY);
-				result = local.GetScalar(sql);
+				if(variate.PROPERTY != "") 
+				{
+					SplashScreen.SplashScreen.SetStatus("Searching for property: " + variate.PROPERTY);
+					sql = String.Format("SELECT traitid FROM trait WHERE TRNAME='{0}'", variate.PROPERTY);
+					result = local.GetScalar(sql);
 
-				if(result != "") 
-				{ //query local
-					variate.PROPERTYID = result;
+					if(result != "") 
+					{ //query local
+						variate.PROPERTYID = result;
+					}
+					else 
+					{ //else query central
+						result = central.GetScalar(sql);
+						if(result != "")
+							variate.PROPERTYID = result;
+					}
+					engine.study.SetVariate(i, variate);
 				}
-				else 
-				{ //else query central
-					result = central.GetScalar(sql);
-					variate.PROPERTYID = result;
-				}
-				engine.study.SetVariate(i, variate);
 			}
 
 		}
@@ -80,12 +88,19 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			String sql = "";
 			String[] result;
 			Scale scale = null;
+			bool flag = true;
 
 			for(int i = 0; i < engine.study.GetVariates().Count; i++)
 			{
 				Variate variate = engine.study.GetVariate(i);
+
+				if(variate.PROPERTYID == "")
+					continue;
+
+				SplashScreen.SplashScreen.SetStatus("Updating " + variate.SCALE);
 				sql = String.Format("SELECT scaleid, sctype FROM scale WHERE scname='{0}' AND traitid={1}", variate.SCALE, variate.PROPERTYID);
 				
+				flag = true;
 				result = local.GetPair(sql);
 				if(result != null) 
 				{ //query local
@@ -94,67 +109,79 @@ namespace IcisMobileDesktopServer.Framework.Builder
 				else 
 				{ //query local
 					result = central.GetPair(sql);
-					variate.SCALEID = result[0];
-				}
-				engine.study.SetVariate(i, variate);
-				
-				scale = new Scale();
-				scale.ID = result[0];
-				scale.NAME = variate.SCALE;
-				scale.TYPE = result[1];
-
-				//get scale values
-				if(scale.TYPE.ToUpper().Equals("C")) //just 1-row
-				{ //continuous
-					sql = String.Format("SELECT slevel, elevel FROM scalecon WHERE scaleid={0}", result[0]);
-					
-					result = local.GetPair(sql); //seek local
-					if(result != null) 
+					if(result != null)
+						variate.SCALEID = result[0];
+					else 
 					{
-						scale.VALUE1 = result[0];
-						scale.VALUE2 = result[1];
+						flag = false;
+						LogHelper.Instance().WriteLog("Missing scale: " + variate.SCALE);
 					}
-					else //seek central
-					{
-						result = central.GetPair(sql);
+				}
+
+				if(flag) 
+				{
+					engine.study.SetVariate(i, variate);
+				
+					scale = new Scale();
+					scale.ID = result[0];
+					scale.NAME = variate.SCALE;
+					scale.TYPE = result[1];
+
+					//get scale values
+					if(scale.TYPE.ToUpper().Equals("C")) //just 1-row
+					{ //continuous
+						sql = String.Format("SELECT slevel, elevel FROM scalecon WHERE scaleid={0}", result[0]);
+					
+						result = local.GetPair(sql); //seek local
 						if(result != null) 
 						{
 							scale.VALUE1 = result[0];
 							scale.VALUE2 = result[1];
 						}
-					}
-				} 
-				else 
-				{ //discontinuous
-					DataSet ds = null;
-					DataTable table = null;
-
-					sql = String.Format("SELECT value, valdesc FROM scaledis WHERE scaleid={0}", result[0]);
-					ds = local.Query(sql);
-					table = ds.Tables[0];
-					
-					if(table.Rows.Count > 0) 
-					{ //local
-						foreach(DataRow row in table.Rows) 
+						else //seek central
 						{
-							scale.AddDisconValue(row["value"], row["valdesc"]);
+							result = central.GetPair(sql);
+							if(result != null) 
+							{
+								scale.VALUE1 = result[0];
+								scale.VALUE2 = result[1];
+							}
 						}
 					} 
 					else 
-					{ //central
-						ds = central.Query(sql);
-						table = ds.Tables[0];
-						if(table.Rows.Count > 0) 
+					{ //discontinuous
+						if(result != null) 
 						{
-							foreach(DataRow row in table.Rows) 
-							{
-								scale.AddDisconValue(row["value"], row["valdesc"]);
+							DataSet ds = null;
+							DataTable table = null;
+
+							sql = String.Format("SELECT value, valdesc FROM scaledis WHERE scaleid={0}", result[0]);
+							ds = local.Query(sql);
+							table = ds.Tables[0];
+					
+							if(table.Rows.Count > 0) 
+							{ //local
+								foreach(DataRow row in table.Rows) 
+								{
+									scale.AddDisconValue(row["value"], row["valdesc"]);
+								}
+							} 
+							else 
+							{ //central
+								ds = central.Query(sql);
+								table = ds.Tables[0];
+								if(table.Rows.Count > 0) 
+								{
+									foreach(DataRow row in table.Rows) 
+									{
+										scale.AddDisconValue(row["value"], row["valdesc"]);
+									}
+								}
 							}
 						}
 					}
+					engine.study.AddScale(scale);
 				}
-
-				engine.study.AddScale(scale);
 			}
 		}
 	}

@@ -81,13 +81,18 @@ namespace IcisMobileDesktopServer.Framework
 		/// </summary>
 		public void ShowFilterFactors() 
 		{
-			int[] x_factor = resourceHelper.GetIntPair("factor_cell");
-			int row_index = x_factor[0];
+			//get factor cell
+			int col_index = 1;
+			int row_index = 1;
+			while(!GetExcelReader().GetCell(row_index++, col_index).Trim().ToUpper().Equals("FACTOR")) 
+			{ 
+				//
+			}
 			ArrayList list = new ArrayList();
 
-			while(GetExcelReader().GetCell(row_index, x_factor[1]) != "") 
+			while(GetExcelReader().GetCell(row_index, col_index) != "") 
 			{
-				list.Add(GetExcelReader().GetCell(row_index, x_factor[1]));
+				list.Add(GetExcelReader().GetCell(row_index, col_index));
 				row_index++;
 			}
 
@@ -207,7 +212,8 @@ namespace IcisMobileDesktopServer.Framework
 			SplashScreen.SplashScreen.SetStatus("Writing study to file...");
 			System.Threading.Thread.Sleep(1000);
 			//write the data to file
-			FileHelper.WriteToFile(studyPath + studyFile, FactorBuilder.SetFactorValues(this));
+			//FileHelper.WriteToFile(studyPath + studyFile, FactorBuilder.SetFactorValues(this));
+			FactorBuilder.SetFactorValues(studyPath + studyFile, this);
 
 			//copy the file to the mobile device
 			SplashScreen.SplashScreen.SetStatus("Copying file to mobile device...");

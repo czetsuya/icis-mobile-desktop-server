@@ -103,6 +103,7 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			} 
 			catch(OleDbException e) 
 			{
+				str = "";
 				LogHelper.Instance().WriteLog(e.Message);
 			}
 			finally 

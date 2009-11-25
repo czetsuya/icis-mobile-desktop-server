@@ -358,6 +358,7 @@ namespace IcisMobileDesktopServer
 		/// <param name="e"></param>
 		private void btnExit_Click(object sender, System.EventArgs e)
 		{
+			engine.Dispose();
 			Application.Exit();
 		}
 

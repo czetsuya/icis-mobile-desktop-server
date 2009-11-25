@@ -73,7 +73,7 @@ namespace IcisMobileDesktopServer.Framework.Xml
 			foreach(DataCollection.Factor obj in study.GetFactors()) 
 			{
 				sb.Append(obj.NAME);
-				sb.Append("->");
+				sb.Append("/");
 			}
 			sb = sb.Remove(sb.Length - 1, 1);
 			String stemp = Helper.FileHelper.ReadAsSchema(factorSchema);
