@@ -51,12 +51,6 @@
 	<data name="enddate_cell">
 		<value>6,2</value>
 	</data>
-	<data name="factor_cell">
-		<value>13,1</value>
-	</data>
-	<data name="variate_cell">
-		<value>22,1</value>
-	</data>
 	<data name="property_column">
 		<value>3</value>
 	</data>

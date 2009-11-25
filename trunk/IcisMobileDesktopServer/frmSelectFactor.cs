@@ -159,8 +159,8 @@ namespace IcisMobileDesktopServer
 					sb.Append("|");
 				}
 				sb.Remove(sb.Length - 1, 1);
+				engine.SetFilteredFactors(this, sb.ToString());
 			}
-			engine.SetFilteredFactors(this, sb.ToString());
 		}
 
 		/// <summary>

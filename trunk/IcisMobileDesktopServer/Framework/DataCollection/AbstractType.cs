@@ -50,6 +50,7 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 		{
 			name = "";
 			property = "";
+			propertyid = "";
 			scale = "";
 			method = "";
 			datatype = "";
@@ -71,7 +72,10 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 
 		public String PROPERTYID
 		{
-			set { propertyid = value; }
+			set { 
+				if(value != "")
+					propertyid = value; 
+			}
 			get { return propertyid; }
 		}
 
@@ -95,7 +99,9 @@ namespace IcisMobileDesktopServer.Framework.DataCollection
 
 		public String SCALEID 
 		{
-			set { scaleid = value; }
+			set { 
+				if(value != "")
+					scaleid = value; }
 			get { return scaleid; }
 		}
 		#endregion
