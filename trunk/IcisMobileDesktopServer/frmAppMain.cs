@@ -42,6 +42,8 @@ namespace IcisMobileDesktopServer
 		private System.Windows.Forms.Timer timerBtn;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Label lblHeader1;
+		private System.Windows.Forms.Label lblUploc;
+		private System.Windows.Forms.TextBox tbUploc;
 		private System.ComponentModel.IContainer components;
 
 		public frmAppMain()
@@ -96,6 +98,8 @@ namespace IcisMobileDesktopServer
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.timerBtn = new System.Windows.Forms.Timer(this.components);
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.lblUploc = new System.Windows.Forms.Label();
+			this.tbUploc = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// lblHeader1
@@ -133,7 +137,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// btnProcess
 			// 
-			this.btnProcess.Location = new System.Drawing.Point(200, 248);
+			this.btnProcess.Location = new System.Drawing.Point(200, 280);
 			this.btnProcess.Name = "btnProcess";
 			this.btnProcess.Size = new System.Drawing.Size(152, 23);
 			this.btnProcess.TabIndex = 3;
@@ -142,7 +146,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// btnExit
 			// 
-			this.btnExit.Location = new System.Drawing.Point(200, 288);
+			this.btnExit.Location = new System.Drawing.Point(200, 312);
 			this.btnExit.Name = "btnExit";
 			this.btnExit.Size = new System.Drawing.Size(152, 23);
 			this.btnExit.TabIndex = 4;
@@ -193,7 +197,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// btnSelFacs
 			// 
-			this.btnSelFacs.Location = new System.Drawing.Point(24, 248);
+			this.btnSelFacs.Location = new System.Drawing.Point(24, 280);
 			this.btnSelFacs.Name = "btnSelFacs";
 			this.btnSelFacs.Size = new System.Drawing.Size(152, 23);
 			this.btnSelFacs.TabIndex = 10;
@@ -202,7 +206,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// btnFromDevice
 			// 
-			this.btnFromDevice.Location = new System.Drawing.Point(24, 288);
+			this.btnFromDevice.Location = new System.Drawing.Point(24, 312);
 			this.btnFromDevice.Name = "btnFromDevice";
 			this.btnFromDevice.Size = new System.Drawing.Size(152, 23);
 			this.btnFromDevice.TabIndex = 11;
@@ -217,7 +221,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// progressBar1
 			// 
-			this.progressBar1.Location = new System.Drawing.Point(1, 335);
+			this.progressBar1.Location = new System.Drawing.Point(1, 352);
 			this.progressBar1.Name = "progressBar1";
 			this.progressBar1.Size = new System.Drawing.Size(175, 23);
 			this.progressBar1.TabIndex = 12;
@@ -236,11 +240,29 @@ namespace IcisMobileDesktopServer
 			this.pictureBox1.TabIndex = 13;
 			this.pictureBox1.TabStop = false;
 			// 
+			// lblUploc
+			// 
+			this.lblUploc.Location = new System.Drawing.Point(16, 218);
+			this.lblUploc.Name = "lblUploc";
+			this.lblUploc.Size = new System.Drawing.Size(176, 24);
+			this.lblUploc.TabIndex = 15;
+			this.lblUploc.Text = "Upload/Download Location";
+			// 
+			// tbUploc
+			// 
+			this.tbUploc.Location = new System.Drawing.Point(16, 240);
+			this.tbUploc.Name = "tbUploc";
+			this.tbUploc.Size = new System.Drawing.Size(136, 22);
+			this.tbUploc.TabIndex = 16;
+			this.tbUploc.Text = "/Program Files/IcisMobile/";
+			// 
 			// frmAppMain
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
 			this.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.ClientSize = new System.Drawing.Size(376, 355);
+			this.ClientSize = new System.Drawing.Size(376, 383);
+			this.Controls.Add(this.tbUploc);
+			this.Controls.Add(this.lblUploc);
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.progressBar1);
 			this.Controls.Add(this.btnFromDevice);
@@ -302,9 +324,8 @@ namespace IcisMobileDesktopServer
 			ofddmscentral.InitialDirectory = @"C:\ICIS5\Database\IRIS\Central\IRIS-DMS.mdb";
 			ofddmslocal.InitialDirectory = @"C:\ICIS5\current\Training.mdb";
 			ofdSelWb.InitialDirectory = @"C:\ICIS5\U03WSHB_data.xls";
-
 			engine = new Engine(progressBar1);
-
+			
 			timerBtn.Tick += new EventHandler(timerBtn_Tick);
 
 			//Set the owner of the splash screen instance to this form
@@ -340,7 +361,8 @@ namespace IcisMobileDesktopServer
 				btnProcess.Text = ResourceHelper.GetStaticString("messages", "m_uploading");
 				btnProcess.Enabled = false;
 				timerBtn.Enabled = true;
-				if(!engine.Process()) 
+				
+				if(!engine.Process(tbUploc.Text)) 
 				{ //no selected factor yet
                     MessageHelper.ShowError(ResourceHelper.GetStaticString("messages", "m_factorselect"));
 				}
@@ -427,7 +449,7 @@ namespace IcisMobileDesktopServer
 			timerBtn.Enabled = true;
 			btnFromDevice.Text = "Downloading...";
 			btnFromDevice.Enabled = false;
-			string data_file = engine.DownloadFromDevice();			
+			string data_file = engine.DownloadFromDevice(tbUploc.Text);			
 			
 			string excel_file = "";
 			if(data_file != "") 

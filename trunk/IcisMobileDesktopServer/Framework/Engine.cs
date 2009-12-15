@@ -119,6 +119,7 @@ namespace IcisMobileDesktopServer.Framework
 			}
 			obj.Hide();
 			obj = null;
+			excelReader.Close();
 		}
 		#endregion
 
@@ -138,8 +139,11 @@ namespace IcisMobileDesktopServer.Framework
 		/// creating a memory object of the study, creating an xml representation of that study,
 		/// and finally sending the study xml format to the mobile device.
 		/// </summary>
-		public bool Process() 
+		public bool Process(String uploadDest) 
 		{
+			if(uploadDest[uploadDest.Length - 1] != '/')
+				uploadDest = uploadDest + "/";
+
 			if(selFactors == null) 
 			{
 				return false;
@@ -148,7 +152,7 @@ namespace IcisMobileDesktopServer.Framework
 			System.Windows.Forms.Application.DoEvents();
 			
 			bool flag = true;
-			flag = BuildStudy();
+			flag = BuildStudy(uploadDest);
 
 			if(flag) 
 			{
@@ -171,12 +175,12 @@ namespace IcisMobileDesktopServer.Framework
 				String mobileStudyName = resourceHelper.GetString("study_data_file");
 				SplashScreen.SplashScreen.SetStatus("Copying to device...");
 				//copy the study to the mobile device
-				rapi.CopyFilePCtoPDA(studyPath, resourceHelper.GetString("copy_dir") + mobileStudyName);
+				//rapi.CopyFilePCtoPDA(studyPath, resourceHelper.GetString("copy_dir") + mobileStudyName);
+				rapi.CopyFilePCtoPDA(studyPath, uploadDest + mobileStudyName);
 
 				//quit the excel app
-				excelReader.DisposeExcel();
 				SplashScreen.SplashScreen.CloseForm();
-			} 
+			}
 			return true;
 		}
 
@@ -185,8 +189,10 @@ namespace IcisMobileDesktopServer.Framework
 		/// This method calls other methods that specifically create the xml study and load it with values.
 		/// It first load the study and abstract type schema from an xml file. Then add study values, factors and varietes.
 		/// </summary>
-		private bool BuildStudy() 
+		private bool BuildStudy(string dest) 
 		{
+			excelReader.Open();
+			study = new Study();
 			bool flag = true;
 			SplashScreen.SplashScreen.SetStatus("Reading study");
 			System.Threading.Thread.Sleep(500);
@@ -197,6 +203,7 @@ namespace IcisMobileDesktopServer.Framework
 			System.Threading.Thread.Sleep(500);
 			//set the factors
 			FactorBuilder.SetFactors(this);
+			//FactorBuilder.Instance().SetFactors(this);
 
 			SplashScreen.SplashScreen.SetStatus("Reading variates");
 			System.Threading.Thread.Sleep(500);
@@ -218,7 +225,7 @@ namespace IcisMobileDesktopServer.Framework
 			//copy the file to the mobile device
 			SplashScreen.SplashScreen.SetStatus("Copying file to mobile device...");
 			System.Threading.Thread.Sleep(1000);
-			flag = rapi.CopyFilePCtoPDA(studyPath + studyFile, resourceHelper.GetString("copy_dir") + studyFile);
+			flag = rapi.CopyFilePCtoPDA(studyPath + studyFile, dest + studyFile);
 			if(flag) 
 			{
 				//SetVariateProperties
@@ -240,14 +247,17 @@ namespace IcisMobileDesktopServer.Framework
 		/// Download the saved data from mobile device to desktop computer.
 		/// </summary>
 		/// <returns>observation values</returns>
-		public string DownloadFromDevice() 
+		public string DownloadFromDevice(string dest) 
 		{
 			string from = "";
 			string to = "";
 			try 
 			{
 				string fname = resourceHelper.GetString("study_save_data_file");
-				from = resourceHelper.GetString("copy_dir") + fname;
+				//from = resourceHelper.GetString("copy_dir") + fname;
+				if(dest[dest.Length - 1] != '/')
+					dest = dest + "/";
+				from = dest + fname;
 				to = executableDirectoryName +"/"+ fname;
 				rapi.CopyPDAtoPC(to, from); //copy data to mobile device
 			} 
@@ -256,6 +266,10 @@ namespace IcisMobileDesktopServer.Framework
 				to = "";
 				MessageHelper.ShowInfo(errResourceHelper.GetString("m_perform_download"));
 				LogHelper.Instance().WriteLog(e.Message);
+			}
+			if(to.Length == 0) 
+			{
+				MessageHelper.ShowError(errResourceHelper.GetString("m_download_error"));
 			}
 			return to;
 		}
