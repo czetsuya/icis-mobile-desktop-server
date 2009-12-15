@@ -21,6 +21,7 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 		private Workbooks workBooks;
 		private Workbook workBook;
 		private Worksheet workSheet;
+		private String docname;
 
 		/// <summary>
 		/// Initialize the excel object.
@@ -28,6 +29,7 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 		/// <param name="docname"></param>
 		public void InitExcel(String docname) 
 		{
+			this.docname = docname;
 			excelApp = new ApplicationClass();
 			Missing m = Missing.Value;
 			workBooks = excelApp.Workbooks;
@@ -108,7 +110,7 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 		/// </summary>
 		/// <param name="x">cell coordinates</param>
 		/// <returns>int</returns>
-		public int GetInt(int[] x) 
+		public int GetInt(int[] x)
 		{
 			return GetInt(x[0], x[1]);
 		}
@@ -119,14 +121,14 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 		/// <param name="x">cell row</param>
 		/// <param name="y">cell column</param>
 		/// <returns>long</returns>
-		public long GetLong(int x, int y) 
+		public long GetLong(int x, int y)
 		{
 			long z = 0;
 			Range r = (Range)workSheet.Cells[x, y];
-			try 
+			try
 			{
 				z = Convert.ToInt64(r.Value2);
-			} 
+			}
 			catch(Exception e) 
 			{
 				Helper.LogHelper.Instance().WriteLog(e.Message);
@@ -193,6 +195,22 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 			workSheet.Cells[x, y] = val;
 		}
 
+        /// <summary>
+        /// Close the current open WorkBook.
+        /// </summary>
+		public void Close() 
+		{
+			workBook.Close(null, null, null);
+		}
+
+		public void Open() 
+		{
+			Missing m = Missing.Value;
+			workBook = workBooks.Open(docname, m, m, m, m, m, m, m, m, m, m, m, m, m, m);
+			SelectWorksheet(1); //default sheet			
+			workBook.RefreshAll();
+		}
+
 		/// <summary>
 		/// Saves the open workbook.
 		/// </summary>
@@ -207,7 +225,8 @@ namespace IcisMobileDesktopServer.Framework.ExcelManager
 		public void DisposeExcel() 
 		{
 			if(excelApp != null) 
-			{	
+			{
+				Close();
 				excelApp.Quit();
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(workBook);
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(workBooks);

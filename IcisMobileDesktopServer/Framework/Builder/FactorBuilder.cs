@@ -15,6 +15,16 @@ namespace IcisMobileDesktopServer.Framework.Builder
 	/// </summary>
 	public class FactorBuilder
 	{
+		private static FactorBuilder instance;
+
+		public static FactorBuilder Instance() 
+		{
+			if(instance == null) 
+			{
+				instance = new FactorBuilder();
+			}
+			return instance;
+		}
 		/// <summary>
 		/// Reads the factor from workbook and save it to a factor data object.
 		/// </summary>
@@ -237,12 +247,12 @@ namespace IcisMobileDesktopServer.Framework.Builder
 					}
 					row++; //increment row
 				}
-				if(xctr < 1000) 
-				{
-					SplashScreen.SplashScreen.SetStatus("Saving cache data...");
-					System.Threading.Thread.Sleep(500);
-					Helper.FileHelper.AppendToFile(path, sb.ToString());
-				}
+			}
+			if(xctr < 1000) 
+			{
+				SplashScreen.SplashScreen.SetStatus("Saving cache data...");
+				System.Threading.Thread.Sleep(500);
+				Helper.FileHelper.AppendToFile(path, sb.ToString());
 			}
 		}
 	}

@@ -69,4 +69,7 @@
 	<data name="m_uploading">
 		<value>Uploading</value>
 	</data>
+	<data name="m_download_error">
+		<value>Downloading data failed. Make sure the data has been prepared for download.</value>
+	</data>
 </root>
