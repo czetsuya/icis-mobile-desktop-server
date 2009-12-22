@@ -25,9 +25,21 @@ namespace IcisMobileDesktopServer.Framework.Helper
 		{
 			FileInfo executableFileInfo = new FileInfo(Application.ExecutablePath);
 			executableDirectoryName = executableFileInfo.DirectoryName;
-			if(!File.Exists(executableDirectoryName + LOGFILE)) 
+			FileStream fs = null;
+			try 
 			{
-				File.Create(executableDirectoryName + LOGFILE);
+				if(!File.Exists(executableDirectoryName + LOGFILE)) 
+				{
+					fs = File.Create(executableDirectoryName + LOGFILE);
+				}
+			} 
+			catch(Exception e) { } 
+			finally 
+			{
+				if(fs != null) 
+				{
+					fs.Close();
+				}
 			}
 		}
 
@@ -76,6 +88,7 @@ namespace IcisMobileDesktopServer.Framework.Helper
 			} 
 			catch(Exception e) 
 			{
+				Console.WriteLine(e.Message);
 			}
 			finally
 			{

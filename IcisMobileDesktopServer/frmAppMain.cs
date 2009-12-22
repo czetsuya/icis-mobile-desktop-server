@@ -44,6 +44,7 @@ namespace IcisMobileDesktopServer
 		private System.Windows.Forms.Label lblHeader1;
 		private System.Windows.Forms.Label lblUploc;
 		private System.Windows.Forms.TextBox tbUploc;
+		private System.Windows.Forms.Label lblIAbout;
 		private System.ComponentModel.IContainer components;
 
 		public frmAppMain()
@@ -100,6 +101,7 @@ namespace IcisMobileDesktopServer
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.lblUploc = new System.Windows.Forms.Label();
 			this.tbUploc = new System.Windows.Forms.TextBox();
+			this.lblIAbout = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// lblHeader1
@@ -221,7 +223,7 @@ namespace IcisMobileDesktopServer
 			// 
 			// progressBar1
 			// 
-			this.progressBar1.Location = new System.Drawing.Point(1, 352);
+			this.progressBar1.Location = new System.Drawing.Point(1, 344);
 			this.progressBar1.Name = "progressBar1";
 			this.progressBar1.Size = new System.Drawing.Size(175, 23);
 			this.progressBar1.TabIndex = 12;
@@ -252,16 +254,29 @@ namespace IcisMobileDesktopServer
 			// 
 			this.tbUploc.Location = new System.Drawing.Point(16, 240);
 			this.tbUploc.Name = "tbUploc";
-			this.tbUploc.Size = new System.Drawing.Size(136, 22);
+			this.tbUploc.Size = new System.Drawing.Size(248, 22);
 			this.tbUploc.TabIndex = 16;
 			this.tbUploc.Text = "/Program Files/IcisMobile/";
+			// 
+			// lblIAbout
+			// 
+			this.lblIAbout.Location = new System.Drawing.Point(0, 360);
+			this.lblIAbout.Name = "lblIAbout";
+			this.lblIAbout.Size = new System.Drawing.Size(368, 16);
+			this.lblIAbout.TabIndex = 17;
+			this.lblIAbout.Text = "Copyright 2009 IRRI CRIL. All rights reserved.";
+			this.lblIAbout.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// frmAppMain
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
 			this.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.ClientSize = new System.Drawing.Size(376, 383);
+			this.Controls.Add(this.lblIAbout);
 			this.Controls.Add(this.tbUploc);
+			this.Controls.Add(this.tbDMSCentral);
+			this.Controls.Add(this.tbDMSLocal);
+			this.Controls.Add(this.tbWB);
 			this.Controls.Add(this.lblUploc);
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.progressBar1);
@@ -269,9 +284,6 @@ namespace IcisMobileDesktopServer
 			this.Controls.Add(this.btnSelFacs);
 			this.Controls.Add(this.btnLocalDMS);
 			this.Controls.Add(this.btnCentralDMS);
-			this.Controls.Add(this.tbDMSCentral);
-			this.Controls.Add(this.tbDMSLocal);
-			this.Controls.Add(this.tbWB);
 			this.Controls.Add(this.btnExit);
 			this.Controls.Add(this.btnProcess);
 			this.Controls.Add(this.btnOpenFD);

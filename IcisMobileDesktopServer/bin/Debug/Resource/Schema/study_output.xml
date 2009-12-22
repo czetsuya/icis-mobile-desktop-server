@@ -1,60 +1,155 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <study>
-	<study-name>U03WSHB-Spring</study-name>
-	<study-title>Upland Hybridization Block 2003, Wet Season</study-title>
-	<study-start-date></study-start-date>
-	<study-end-date></study-end-date>
+	<study-name>PN_2008_NOV</study-name>
+	<study-title>Pedigree Nursery for November 2008 PLANT AND BULK SELECTIONS</study-title>
+	<study-start-date>20081100</study-start-date>
+	<study-end-date>20090402</study-end-date>
 	<factors>		
 		<factor>
-	<name>ENTRYNO</name>
+	<name>DESTINATION</name>
 </factor>
 	</factors>
 	<variates>
 		<variate>
-	<name>GRNYLD</name>
-	<property>YIELD (GRAIN)</property>
-	<propertyid>1003</propertyid>
-	<scale>Kg/ha</scale>
-	<scaleid>9</scaleid>
-	<method>Paddy Rice</method>
+	<name>SELTYPE</name>
+	<property>BMETH</property>
+	<propertyid>301</propertyid>
+	<scale>Code</scale>
+	<scaleid>160</scaleid>
+	<method>Not Specified</method>
+	<data-type>C</data-type>
+</variate><variate>
+	<name>NPLANTS</name>
+	<property>NPSEL</property>
+	<propertyid>225</propertyid>
+	<scale>Number</scale>
+	<scaleid>161</scaleid>
+	<method>Not Specified</method>
 	<data-type>N</data-type>
 </variate><variate>
-	<name>PLTHT</name>
-	<property>PLANT HEIGHT</property>
-	<propertyid>1006</propertyid>
-	<scale>cm</scale>
-	<scaleid>4</scaleid>
-	<method>At Maturity (Stages 7-9)</method>
+	<name>STARTPLANT</name>
+	<property>COMMENT</property>
+	<propertyid>214</propertyid>
+	<scale>Text</scale>
+	<scaleid>245</scaleid>
+	<method>Not Specified</method>
 	<data-type>N</data-type>
 </variate><variate>
-	<name>FLW</name>
-	<property>FLOWERING</property>
+	<name>FL</name>
+	<property>DAYS TO FLOWER</property>
 	<propertyid>1013</propertyid>
 	<scale>No. of days</scale>
 	<scaleid>70</scaleid>
 	<method>80% Flowering</method>
 	<data-type>N</data-type>
 </variate><variate>
-	<name>PACP</name>
-	<property>PHENOTYPHIC ACCEPTABILITY</property>
-	<propertyid>1005</propertyid>
-	<scale>SES Score Acceptability 5pt</scale>
-	<scaleid>8</scaleid>
-	<method>At Maturity</method>
+	<name>BL</name>
+	<property>BLAST</property>
+	<propertyid>1104</propertyid>
+	<scale>SES Score Blast Nursery (0-9)</scale>
+	<scaleid>21</scaleid>
+	<method>Field Trial</method>
 	<data-type>N</data-type>
+</variate><variate>
+	<name>BB1</name>
+	<property>BACTERIAL BLIGHT</property>
+	<propertyid>1101</propertyid>
+	<scale>SES Score Lesion Area 5pt</scale>
+	<scaleid>164</scaleid>
+	<method>Race 1 Field Trial</method>
+	<data-type>C</data-type>
+</variate><variate>
+	<name>BB2</name>
+	<property>BACTERIAL BLIGHT</property>
+	<propertyid>1101</propertyid>
+	<scale>SES Score Lesion Area 5pt</scale>
+	<scaleid>164</scaleid>
+	<method>Race 2 Field Trial</method>
+	<data-type>C</data-type>
+</variate><variate>
+	<name>BLC</name>
+	<property>BROWN PLANTHOPPER</property>
+	<propertyid>1152</propertyid>
+	<scale>SES Score Greenhouse 6pt</scale>
+	<scaleid>121</scaleid>
+	<method>Local colony</method>
+	<data-type>N</data-type>
+</variate><variate>
+	<name>GLH</name>
+	<property>GREEN LEAFHOPPER</property>
+	<propertyid>1156</propertyid>
+	<scale>SES Score Damage 6pt</scale>
+	<scaleid>18</scaleid>
+	<method>Field Trial</method>
+	<data-type>N</data-type>
+</variate><variate>
+	<name>AMY</name>
+	<property>AMYLOSE CONTENT OF GRAIN</property>
+	<propertyid>1251</propertyid>
+	<scale>Percent</scale>
+	<scaleid>11</scaleid>
+	<method>Standard laboratory procedure</method>
+	<data-type>N</data-type>
+</variate><variate>
+	<name>GELTEMP</name>
+	<property>GELATINIZATION TEMPERATURE</property>
+	<propertyid>1256</propertyid>
+	<scale>Code H/I/L/S</scale>
+	<scaleid>12</scaleid>
+	<method>Cooking Test</method>
+	<data-type>C</data-type>
+</variate><variate>
+	<name>AROMA</name>
+	<property>AROMA</property>
+	<propertyid>1252</propertyid>
+	<scale>Description</scale>
+	<scaleid>131</scaleid>
+	<method>Cooking Test at Maturity</method>
+	<data-type>C</data-type>
+</variate><variate>
+	<name>GRE</name>
+	<property>GRAIN LENGTH</property>
+	<propertyid>1051</propertyid>
+	<scale>mm</scale>
+	<scaleid>14</scaleid>
+	<method>At Growth Stage 9 (Mature Grain)</method>
+	<data-type>N</data-type>
+</variate><variate>
+	<name>MPS</name>
+	<property>MILLING POTENTIAL SCORE OF BROWN RICE</property>
+	<propertyid>-7</propertyid>
+	<scale>Score Headrice 3pt</scale>
+	<scaleid>-15</scaleid>
+	<method>Visual</method>
+	<data-type>N</data-type>
+</variate><variate>
+	<name>CHALK</name>
+	<property>CHALKINESS OF ENDOSPERM</property>
+	<propertyid>1253</propertyid>
+	<scale>SES Score Kernel Area 4pt</scale>
+	<scaleid>16</scaleid>
+	<method>Milled Rice</method>
+	<data-type>C</data-type>
 </variate>
 	</variates>
 	<scales>
 		<scale>
-	<id>9</id>
-	<name>Kg/ha</name>
+	<id>160</id>
+	<name>Code</name>
 	<type>C</type>
-	<value1>10</value1>
-	<value2>20</value2>
+	<value1></value1>
+	<value2></value2>
 	<value3>{value3}</value3>
 </scale><scale>
-	<id>4</id>
-	<name>cm</name>
+	<id>161</id>
+	<name>Number</name>
+	<type>C</type>
+	<value1></value1>
+	<value2></value2>
+	<value3>{value3}</value3>
+</scale><scale>
+	<id>245</id>
+	<name>Text</name>
 	<type>C</type>
 	<value1></value1>
 	<value2></value2>
@@ -67,8 +162,78 @@
 	<value2></value2>
 	<value3>{value3}</value3>
 </scale><scale>
-	<id>8</id>
-	<name>SES Score Acceptability 5pt</name>
+	<id>21</id>
+	<name>SES Score Blast Nursery (0-9)</name>
+	<type>C</type>
+	<value1></value1>
+	<value2></value2>
+	<value3>{value3}</value3>
+</scale><scale>
+	<id>164</id>
+	<name>SES Score Lesion Area 5pt</name>
+	<type>C</type>
+	<value1></value1>
+	<value2></value2>
+	<value3>{value3}</value3>
+</scale><scale>
+	<id>164</id>
+	<name>SES Score Lesion Area 5pt</name>
+	<type>C</type>
+	<value1></value1>
+	<value2></value2>
+	<value3>{value3}</value3>
+</scale><scale>
+	<id>121</id>
+	<name>SES Score Greenhouse 6pt</name>
+	<type>C</type>
+	<value1></value1>
+	<value2></value2>
+	<value3>{value3}</value3>
+</scale><scale>
+	<id>18</id>
+	<name>SES Score Damage 6pt</name>
+	<type>C</type>
+	<value1></value1>
+	<value2></value2>
+	<value3>{value3}</value3>
+</scale><scale>
+	<id>11</id>
+	<name>Percent</name>
+	<type>C</type>
+	<value1></value1>
+	<value2></value2>
+	<value3>{value3}</value3>
+</scale><scale>
+	<id>12</id>
+	<name>Code H/I/L/S</name>
+	<type>C</type>
+	<value1></value1>
+	<value2></value2>
+	<value3>{value3}</value3>
+</scale><scale>
+	<id>131</id>
+	<name>Description</name>
+	<type>C</type>
+	<value1></value1>
+	<value2></value2>
+	<value3>{value3}</value3>
+</scale><scale>
+	<id>14</id>
+	<name>mm</name>
+	<type>C</type>
+	<value1></value1>
+	<value2></value2>
+	<value3>{value3}</value3>
+</scale><scale>
+	<id>-15</id>
+	<name>Score Headrice 3pt</name>
+	<type>C</type>
+	<value1></value1>
+	<value2></value2>
+	<value3>{value3}</value3>
+</scale><scale>
+	<id>16</id>
+	<name>SES Score Kernel Area 4pt</name>
 	<type>C</type>
 	<value1></value1>
 	<value2></value2>

@@ -52,15 +52,17 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			DataAccessHelper central = new DataAccessHelper(engine.centralDMS);
 			String sql = "";
 			String result;
+			bool flag = true;
 
 			for(int i = 0; i < engine.study.GetVariates().Count; i++) 
 			{
+				flag = true;
 				Variate variate = engine.study.GetVariate(i);
 				if(variate.PROPERTY != "") 
 				{
 					SplashScreen.SplashScreen.SetStatus("Searching for property: " + variate.PROPERTY);
 					sql = String.Format("SELECT traitid FROM trait WHERE TRNAME='{0}'", variate.PROPERTY);
-					result = local.GetScalar(sql);
+					result = local.GetScalar(sql);					
 
 					if(result != "") 
 					{ //query local
@@ -69,10 +71,20 @@ namespace IcisMobileDesktopServer.Framework.Builder
 					else 
 					{ //else query central
 						result = central.GetScalar(sql);
-						if(result != "")
+						if(result != "") 
+						{
 							variate.PROPERTYID = result;
+						} 
+						else 
+						{ //not found
+							flag = false;
+							LogHelper.Instance().WriteLog("Missing Property: " + variate.PROPERTY);
+						}
 					}
-					engine.study.SetVariate(i, variate);
+					if(flag) 
+					{
+						engine.study.SetVariate(i, variate);
+					}
 				}
 			}
 
@@ -101,14 +113,14 @@ namespace IcisMobileDesktopServer.Framework.Builder
 				sql = String.Format("SELECT scaleid, sctype FROM scale WHERE scname='{0}' AND traitid={1}", variate.SCALE, variate.PROPERTYID);
 				
 				flag = true;
-				result = local.GetPair(sql);
+				result = local.GetPair(sql, false);
 				if(result != null) 
 				{ //query local
 					variate.SCALEID = result[0];
 				}
 				else 
 				{ //query local
-					result = central.GetPair(sql);
+					result = central.GetPair(sql, false);
 					if(result != null)
 						variate.SCALEID = result[0];
 					else 
@@ -132,7 +144,7 @@ namespace IcisMobileDesktopServer.Framework.Builder
 					{ //continuous
 						sql = String.Format("SELECT slevel, elevel FROM scalecon WHERE scaleid={0}", result[0]);
 					
-						result = local.GetPair(sql); //seek local
+						result = local.GetPair(sql, false); //seek local
 						if(result != null) 
 						{
 							scale.VALUE1 = result[0];
@@ -140,12 +152,12 @@ namespace IcisMobileDesktopServer.Framework.Builder
 						}
 						else //seek central
 						{
-							result = central.GetPair(sql);
+							result = central.GetPair(sql, false);
 							if(result != null) 
 							{
 								scale.VALUE1 = result[0];
 								scale.VALUE2 = result[1];
-							}
+							} 
 						}
 					} 
 					else 
