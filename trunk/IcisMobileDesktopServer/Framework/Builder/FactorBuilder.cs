@@ -97,75 +97,85 @@ namespace IcisMobileDesktopServer.Framework.Builder
 				Factor factor = engine.study.GetFactor(i);
 				sql = String.Format("SELECT scaleid, sctype FROM scale WHERE scname='{0}'", factor.SCALE);
 				
-				result = local.GetPair(sql);
+				result = local.GetPair(sql, false);
 				if(result != null) 
 				{
 					factor.SCALEID = result[0];
 				}
 				else 
 				{
-					result = central.GetPair(sql);
+					result = central.GetPair(sql, false);
 					factor.SCALEID = result[0];
 				}
-				engine.study.SetFactor(i, factor);
-				
-				scale = new Scale();
-				scale.ID = result[0];
-				scale.NAME = factor.SCALE;
-				scale.TYPE = result[1];
 
-				//get scale values
-				if(scale.TYPE.ToUpper().Equals("C")) //just 1-row
-				{ //continuous
-					sql = String.Format("SELECT slevel, elevel FROM scalecon WHERE scaleid={0}", result[0]);
+				if(result != null) 
+				{
+					engine.study.SetFactor(i, factor);
+				
+					scale = new Scale();
+					scale.ID = result[0];
+					scale.NAME = factor.SCALE;
+					scale.TYPE = result[1];
+
+					if(result[0] != "") 
+					{
+						//get scale values
+						if(scale.TYPE.ToUpper().Equals("C")) //just 1-row
+						{ //continuous
+							sql = String.Format("SELECT slevel, elevel FROM scalecon WHERE scaleid={0}", result[0]);
 					
-					result = local.GetPair(sql);
-					if(result != null) 
-					{
-						scale.VALUE1 = result[0];
-						scale.VALUE2 = result[1];
-					}
-					else 
-					{
-						result = central.GetPair(sql);
-						if(result != null) 
-						{
-							scale.VALUE1 = result[0];
-							scale.VALUE2 = result[1];
+							result = local.GetPair(sql, false);
+							if(result != null) 
+							{
+								scale.VALUE1 = result[0];
+								scale.VALUE2 = result[1];
+							}
+							else 
+							{
+								result = central.GetPair(sql, false);
+								if(result != null) 
+								{
+									scale.VALUE1 = result[0];
+									scale.VALUE2 = result[1];
+								}
+							}
+						} 
+						else 
+						{ //discontinuous
+							DataSet ds = null;
+							DataTable table = null;
+
+							sql = String.Format("SELECT value, valdesc FROM scaledis WHERE scaleid={0}", result[0]);
+							ds = local.Query(sql);
+							table = ds.Tables[0];
+					
+							if(table.Rows.Count > 0) 
+							{ //local
+								foreach(DataRow row in table.Rows) 
+								{
+									scale.AddDisconValue(row["value"], row["valdesc"]);
+								}
+							} 
+							else 
+							{ //central
+								ds = central.Query(sql);
+								table = ds.Tables[0];
+								if(table.Rows.Count > 0) 
+								{
+									foreach(DataRow row in table.Rows) 
+									{
+										scale.AddDisconValue(row["value"], row["valdesc"]);
+									}
+								}
+							}
 						}
+						engine.study.AddScale(scale);
 					}
 				} 
 				else 
-				{ //discontinuous
-					DataSet ds = null;
-					DataTable table = null;
-
-					sql = String.Format("SELECT value, valdesc FROM scaledis WHERE scaleid={0}", result[0]);
-					ds = local.Query(sql);
-					table = ds.Tables[0];
-					
-					if(table.Rows.Count > 0) 
-					{ //local
-						foreach(DataRow row in table.Rows) 
-						{
-							scale.AddDisconValue(row["value"], row["valdesc"]);
-						}
-					} 
-					else 
-					{ //central
-						ds = central.Query(sql);
-						table = ds.Tables[0];
-						if(table.Rows.Count > 0) 
-						{
-							foreach(DataRow row in table.Rows) 
-							{
-								scale.AddDisconValue(row["value"], row["valdesc"]);
-							}
-						}
-					}
+				{ //scale not found
+					LogHelper.Instance().WriteLog("Missing Scale Name: " + factor.SCALE);
 				}
-
-				engine.study.AddScale(scale);
 			}
 		}
 
@@ -206,6 +216,7 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			} 
 			else
 			{ //no error found continue, write the factor values to a file
+				System.IO.File.Delete(path);
 				int col_ctr = 1;
 				int row = 2;
 				while(true)

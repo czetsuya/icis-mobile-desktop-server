@@ -59,18 +59,52 @@ namespace IcisMobileDesktopServer.Framework.Helper
 				cmd = conn.CreateCommand();
 				cmd.CommandText = sql;
 				OleDbDataReader reader = cmd.ExecuteReader();
-
-				while(reader.Read()) 
-				{
-					str = new String[2];
-					str[0] = Convert.ToString(GetValue(reader, 0));
-					str[1] = Convert.ToString(GetValue(reader, 1));
-					break;
-				}
+				
+				reader.Read();
+				str = new String[2];
+				str[0] = Convert.ToString(GetValue(reader, 0));
+				str[1] = Convert.ToString(GetValue(reader, 1));
 			} 
 			catch(OleDbException e) 
 			{
+				str = null;
 				LogHelper.Instance().WriteLog(e.Message);
+			}
+			finally 
+			{
+				cmd.Connection.Close();
+			}
+
+			return str;
+		}
+
+		/// <summary>
+		/// Get a pair of values from a reader
+		/// </summary>
+		/// <param name="sql">sql statement</param>
+		/// <returns>string[]</returns>
+		public String[] GetPair(String sql, bool writeLog)
+		{
+			String[] str = null;
+			try 
+			{	
+				conn.Open();
+				cmd = conn.CreateCommand();
+				cmd.CommandText = sql;
+				OleDbDataReader reader = cmd.ExecuteReader();
+				
+				reader.Read();
+				str = new String[2];
+				str[0] = Convert.ToString(GetValue(reader, 0));
+				str[1] = Convert.ToString(GetValue(reader, 1));
+			} 
+			catch(OleDbException e) 
+			{
+				str = null;
+				if(writeLog) 
+				{
+					LogHelper.Instance().WriteLog(e.Message);
+				}
 			}
 			finally 
 			{
