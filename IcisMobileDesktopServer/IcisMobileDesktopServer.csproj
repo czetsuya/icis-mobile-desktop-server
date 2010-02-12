@@ -208,6 +208,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Framework\ExcelManager\IExcelReader.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Framework\Helper\DataAccessHelper.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

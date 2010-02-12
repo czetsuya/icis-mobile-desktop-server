@@ -1,3 +1,4 @@
+//uncomment 3 rapi calls
 /**
  * @author edwardpantojalegaspi
  * @since 2009.09.15
@@ -175,7 +176,6 @@ namespace IcisMobileDesktopServer.Framework
 				String mobileStudyName = resourceHelper.GetString("study_data_file");
 				SplashScreen.SplashScreen.SetStatus("Copying to device...");
 				//copy the study to the mobile device
-				//rapi.CopyFilePCtoPDA(studyPath, resourceHelper.GetString("copy_dir") + mobileStudyName);
 				rapi.CopyFilePCtoPDA(studyPath, uploadDest + mobileStudyName);
 
 				//quit the excel app

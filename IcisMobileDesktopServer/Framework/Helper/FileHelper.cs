@@ -92,7 +92,7 @@ namespace IcisMobileDesktopServer.Framework.Helper
 		}
 
 		/// <summary>
-		/// Append to file
+		/// Append to the end of a file.
 		/// </summary>
 		/// <param name="file">destination file</param>
 		/// <param name="s">string to write</param>
@@ -119,6 +119,17 @@ namespace IcisMobileDesktopServer.Framework.Helper
 		public static bool IsExists(string path) 
 		{
 			return File.Exists(path);
+		}
+
+		/// <summary>
+		/// Converts a string into byte array.
+		/// </summary>
+		/// <param name="str">string to convert</param>
+		/// <returns>byte array representation of str</returns>
+		public static byte[] ConvertStringToByteArray(string str)
+		{
+			System.Text.ASCIIEncoding byteArray = new System.Text.ASCIIEncoding();
+			return byteArray.GetBytes(str);
 		}
 	}
 }
