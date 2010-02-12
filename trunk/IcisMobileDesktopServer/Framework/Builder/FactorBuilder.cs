@@ -189,6 +189,7 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			string strCurrent = "";
 			bool found = false;
 			int xctr = 1;
+			int row = 2;
 
 			foreach(Factor f in engine.study.GetFactors()) 
 			{
@@ -217,8 +218,8 @@ namespace IcisMobileDesktopServer.Framework.Builder
 			else
 			{ //no error found continue, write the factor values to a file
 				System.IO.File.Delete(path);
-				int col_ctr = 1;
-				int row = 2;
+				int col_ctr = 1;				
+				
 				while(true)
 				{
 					if(engine.GetExcelReader().GetObject(row, 1) == null) 
@@ -259,7 +260,7 @@ namespace IcisMobileDesktopServer.Framework.Builder
 					row++; //increment row
 				}
 			}
-			if(xctr < 1000) 
+			if(xctr <= 1000) 
 			{
 				SplashScreen.SplashScreen.SetStatus("Saving cache data...");
 				System.Threading.Thread.Sleep(500);

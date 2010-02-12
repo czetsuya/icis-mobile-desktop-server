@@ -110,7 +110,7 @@ namespace IcisMobileDesktopServer.Framework.Builder
 					continue;
 
 				SplashScreen.SplashScreen.SetStatus("Updating " + variate.SCALE);
-				sql = String.Format("SELECT scaleid, sctype FROM scale WHERE scname='{0}' AND traitid={1}", variate.SCALE, variate.PROPERTYID);
+				sql = String.Format("SELECT scaleid, sctype FROM scale WHERE scname='{0}' AND traitid={1} ORDER BY scaleid ASC", variate.SCALE, variate.PROPERTYID);
 				
 				flag = true;
 				result = local.GetPair(sql, false);

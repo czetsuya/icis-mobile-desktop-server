@@ -146,9 +146,9 @@ namespace IcisMobileDesktopServer
 		/// <param name="e"></param>
 		private void btnSelect_Click(object sender, System.EventArgs e)
 		{
-			if(lbFactors.SelectedItems.Count > 2) 
+			if(lbFactors.SelectedItems.Count != 2) 
 			{
-				Framework.Helper.MessageHelper.ShowInfo("Please select at most 2 factors.");
+				Framework.Helper.MessageHelper.ShowInfo("Please select 2 factors.");
 			} 
 			else //process
 			{
